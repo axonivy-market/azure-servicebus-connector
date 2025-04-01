@@ -2,5 +2,13 @@
   "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
   "simpleName" : "DemoData",
   "namespace" : "com.axonivy.connector.azure.servicebus.connector.demo",
-  "isBusinessCaseData" : false
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "messageContext",
+    "type" : "com.azure.messaging.servicebus.ServiceBusReceivedMessageContext"
+  }, {
+    "name" : "errorContext",
+    "type" : "com.azure.messaging.servicebus.ServiceBusErrorContext",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
 }

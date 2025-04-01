@@ -6,10 +6,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.azure.messaging.servicebus.ServiceBusClientBuilder;
+import com.azure.messaging.servicebus.ServiceBusErrorContext;
+import com.azure.messaging.servicebus.ServiceBusProcessorClient;
+import com.azure.messaging.servicebus.ServiceBusReceivedMessageContext;
 import com.azure.messaging.servicebus.ServiceBusReceiverClient;
 import com.azure.messaging.servicebus.ServiceBusSenderClient;
 
@@ -29,7 +33,7 @@ public class AzureServiceBusService {
 	private AzureServiceBusService() {
 	}
 
-	public static String getAzureServicebusConnectorGlobalVariableName() {
+	public String getAzureServicebusConnectorGlobalVariableName() {
 		return AZURE_SERVICEBUS_CONNECTOR_GLOBAL_VARIABLE;
 	}
 
@@ -41,10 +45,10 @@ public class AzureServiceBusService {
 		var sender = senders.get(configurationName);
 		if(sender == null) {
 			var props = getConfigurationProperties(configurationName);
-			var connString = props.getProperty(AZURE_SERVICEBUS_CONNECTOR_STRING_GLOBAL_VARIABLE);
-			var queueName = props.getProperty(AZURE_SERVICEBUS_QUEUE_GLOBAL_VARIABLE);
+			var connString = getConnectionString(props);
+			var queueName = getQueue(props);
 
-			Ivy.log().info("Building sender for queue ''{0}''", queueName);
+			Ivy.log().info("Building sender for configuration ''{0}'' queue ''{1}''", configurationName, queueName);
 			sender = new ServiceBusClientBuilder()
 					.connectionString(connString)
 					.sender()
@@ -59,10 +63,10 @@ public class AzureServiceBusService {
 		var receiver = receivers.get(configurationName);
 		if(receiver == null) {
 			var props = getConfigurationProperties(configurationName);
-			var connString = props.getProperty(AZURE_SERVICEBUS_CONNECTOR_STRING_GLOBAL_VARIABLE);
-			var queueName = props.getProperty(AZURE_SERVICEBUS_QUEUE_GLOBAL_VARIABLE);
+			var connString = getConnectionString(props);
+			var queueName = getQueue(props);
 
-			Ivy.log().info("Building receiver for queue ''{0}''", queueName);
+			Ivy.log().info("Building receiver for configuration ''{0}'' queue ''{1}''", configurationName, queueName);
 			receiver = new ServiceBusClientBuilder()
 					.connectionString(connString)
 					.receiver()
@@ -71,6 +75,32 @@ public class AzureServiceBusService {
 			receivers.put(configurationName, receiver);
 		}
 		return receiver;
+	}
+
+	public ServiceBusProcessorClient processor(String configurationName, Consumer<ServiceBusReceivedMessageContext> processMessage, Consumer<ServiceBusErrorContext> processError) {
+		var props = getConfigurationProperties(configurationName);
+		var connString = getConnectionString(props);
+		var queueName = getQueue(props);
+
+		Ivy.log().info("Building processor for configuration ''{0}'' queue ''{1}''", configurationName, queueName);
+
+		var processor = new ServiceBusClientBuilder()
+				.connectionString(connString)
+				.processor()
+				.queueName(queueName)
+				.processMessage(processMessage)
+				.processError(processError)
+				.buildProcessorClient();
+
+		return processor;
+	}
+
+	public String getConnectionString(Properties props) {
+		return props.getProperty(AZURE_SERVICEBUS_CONNECTOR_STRING_GLOBAL_VARIABLE);
+	}
+
+	public String getQueue(Properties props) {
+		return props.getProperty(AZURE_SERVICEBUS_QUEUE_GLOBAL_VARIABLE);
 	}
 
 	/**
