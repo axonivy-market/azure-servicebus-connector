@@ -4,8 +4,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import com.axoniy.connector.azure.servicebus.connector.AzureServiceBusService;
+import com.azure.core.util.IterableStream;
 import com.azure.messaging.servicebus.ServiceBusMessage;
 import com.azure.messaging.servicebus.ServiceBusReceivedMessage;
+import com.azure.messaging.servicebus.ServiceBusReceiverClient;
+import com.azure.messaging.servicebus.ServiceBusSenderClient;
 
 import ch.ivyteam.ivy.environment.Ivy;
 
@@ -21,9 +24,9 @@ public class DemoService {
 		String testMsg = "The current time is %s".formatted(LocalDateTime.now());
 		Ivy.log().info("Sending text as message: ''{0}''", testMsg);
 
-		var sender = AzureServiceBusService.get().sender(DEMO_CONFIG);
+		ServiceBusSenderClient sender = AzureServiceBusService.get().sender(DEMO_CONFIG);
 
-		var msg = new ServiceBusMessage(testMsg);
+		ServiceBusMessage msg = new ServiceBusMessage(testMsg);
 		sender.sendMessage(msg);
 		Ivy.log().info("Sent message via client: ''{0}''.", sender);
 	}
@@ -31,9 +34,10 @@ public class DemoService {
 	public void receiveTest() {
 		Ivy.log().info("Receiving message");
 
-		var receiver = AzureServiceBusService.get().receiver(DEMO_CONFIG);
+		ServiceBusReceiverClient receiver = AzureServiceBusService.get().receiver(DEMO_CONFIG);
 
-		var messages = receiver.receiveMessages(10, Duration.ofSeconds(5));
+		IterableStream<ServiceBusReceivedMessage> messages = receiver.receiveMessages(10, Duration.ofSeconds(5));
+
 
 		var rcvd = 0;
 

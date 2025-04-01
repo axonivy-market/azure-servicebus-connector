@@ -1,0 +1,70 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "195F1F2BDB18FEF8",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.azure.servicebus.AzureServiceBusReceiveData"
+  },
+  "elements" : [ {
+      "id" : "f5",
+      "type" : "CallSubStart",
+      "name" : "receive(Integer,Duration)",
+      "config" : {
+        "signature" : "receive",
+        "input" : {
+          "params" : [
+            { "name" : "maxMessages", "type" : "Integer", "desc" : "" },
+            { "name" : "maxWaitTime", "type" : "java.time.Duration", "desc" : "" }
+          ],
+          "map" : {
+            "out.maxMessages" : "param.maxMessages",
+            "out.maxWaitTime" : "param.maxWaitTime"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "messages", "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>", "desc" : "" }
+          ],
+          "map" : {
+            "result.messages" : "in.messages"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+      },
+      "connect" : [
+        { "id" : "f7", "to" : "f0" }
+      ]
+    }, {
+      "id" : "f6",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 448, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f0",
+      "type" : "Script",
+      "name" : "Receive",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axoniy.connector.azure.servicebus.connector.AzureServiceBusService;",
+            "",
+            "AzureServiceBusService.get().receiver(out.configName).receiveMessages(0, null);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 272, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f1", "to" : "f6", "color" : "default" }
+      ]
+    } ]
+}
