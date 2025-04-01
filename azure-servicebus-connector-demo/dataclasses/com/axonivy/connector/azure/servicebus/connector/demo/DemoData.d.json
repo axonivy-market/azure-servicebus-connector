@@ -8,7 +8,9 @@
     "type" : "com.azure.messaging.servicebus.ServiceBusReceivedMessageContext"
   }, {
     "name" : "errorContext",
-    "type" : "com.azure.messaging.servicebus.ServiceBusErrorContext",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "com.azure.messaging.servicebus.ServiceBusErrorContext"
+  }, {
+    "name" : "messages",
+    "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>"
   } ]
 }
