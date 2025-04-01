@@ -8,15 +8,17 @@
   "elements" : [ {
       "id" : "f5",
       "type" : "CallSubStart",
-      "name" : "receive(Integer,Duration)",
+      "name" : "receive(String,Integer,Duration)",
       "config" : {
         "signature" : "receive",
         "input" : {
           "params" : [
+            { "name" : "configName", "type" : "String", "desc" : "" },
             { "name" : "maxMessages", "type" : "Integer", "desc" : "" },
             { "name" : "maxWaitTime", "type" : "java.time.Duration", "desc" : "" }
           ],
           "map" : {
+            "out.configName" : "param.configName",
             "out.maxMessages" : "param.maxMessages",
             "out.maxWaitTime" : "param.maxWaitTime"
           }
@@ -56,7 +58,7 @@
           "code" : [
             "import com.axoniy.connector.azure.servicebus.connector.AzureServiceBusService;",
             "",
-            "AzureServiceBusService.get().receiver(out.configName).receiveMessages(0, null);"
+            "out.messages = AzureServiceBusService.get().receiver(out.configName).receiveMessages(out.maxMessages, out.maxWaitTime).stream().toList();"
           ]
         }
       },

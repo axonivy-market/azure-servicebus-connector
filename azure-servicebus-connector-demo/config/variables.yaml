@@ -4,5 +4,10 @@ Variables:
     demo:
       inherit: 'standard'
       connection-string: ''
-      queue: 'demo'
+    demo1:
+      inherit: 'demo'
+      queue: 'demo1'
+    demo2:
+      inherit: 'demo'
+      queue: 'demo2'
     
