@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.azure.messaging.servicebus.ServiceBusClientBuilder;
+import com.azure.messaging.servicebus.ServiceBusReceiverClient;
 import com.azure.messaging.servicebus.ServiceBusSenderClient;
 
 import ch.ivyteam.ivy.bpm.error.BpmError;
@@ -23,6 +24,7 @@ public class AzureServiceBusService {
 	private static final String AZURE_SERVICEBUS_QUEUE_GLOBAL_VARIABLE = "queue";
 
 	private static final Map<String, ServiceBusSenderClient> senders = new HashMap<>();
+	private static final Map<String, ServiceBusReceiverClient> receivers = new HashMap<>();
 
 	private AzureServiceBusService() {
 	}
@@ -51,6 +53,24 @@ public class AzureServiceBusService {
 			senders.put(configurationName, sender);
 		}
 		return sender;
+	}
+
+	public synchronized ServiceBusReceiverClient receiver(String configurationName) {
+		var receiver = receivers.get(configurationName);
+		if(receiver == null) {
+			var props = getConfigurationProperties(configurationName);
+			var connString = props.getProperty(AZURE_SERVICEBUS_CONNECTOR_STRING_GLOBAL_VARIABLE);
+			var queueName = props.getProperty(AZURE_SERVICEBUS_QUEUE_GLOBAL_VARIABLE);
+
+			Ivy.log().info("Building receiver for queue ''{0}''", queueName);
+			receiver = new ServiceBusClientBuilder()
+					.connectionString(connString)
+					.receiver()
+					.queueName(queueName)
+					.buildClient();
+			receivers.put(configurationName, receiver);
+		}
+		return receiver;
 	}
 
 	/**

@@ -24,26 +24,67 @@
       "id" : "f1",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 352, "y" : 64 },
+        "at" : { "x" : 480, "y" : 64 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     }, {
       "id" : "f3",
       "type" : "Script",
-      "name" : "Test",
+      "name" : "Demo Send",
       "config" : {
         "output" : {
           "code" : [
             "import com.axonivy.connector.azure.servicebus.connector.demo.DemoService;",
-            "DemoService.get().test();"
+            "DemoService.get().sendTest();"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 64 }
+        "at" : { "x" : 288, "y" : 64 }
       },
       "connect" : [
         { "id" : "f4", "to" : "f1", "color" : "default" }
       ]
+    }, {
+      "id" : "f5",
+      "type" : "RequestStart",
+      "name" : "demoReceive",
+      "config" : {
+        "signature" : "demoReceive",
+        "request" : {
+          "name" : "Demo Receive"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 176 }
+      },
+      "connect" : [
+        { "id" : "f7", "to" : "f6" }
+      ]
+    }, {
+      "id" : "f6",
+      "type" : "Script",
+      "name" : "Demo Receive",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.azure.servicebus.connector.demo.DemoService;",
+            "DemoService.get().receiveTest();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 288, "y" : 176 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f8" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 480, "y" : 176 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
     } ]
 }
