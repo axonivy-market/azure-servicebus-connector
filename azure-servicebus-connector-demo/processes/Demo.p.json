@@ -20,18 +20,19 @@
         "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
       "connect" : [
-        { "id" : "f12", "to" : "f11" }
+        { "id" : "f12", "to" : "f0" }
       ]
     }, {
       "id" : "f11",
       "type" : "Script",
+      "name" : "Received a message",
       "config" : {
         "output" : {
-          "code" : "ivy.log.info(\"Azure Service Bus Event: message: {0} error: {1}\", in.#messageContext, in.#errorContext);"
+          "code" : "ivy.log.info(\"Azure Service Bus Event received message: ''{0}''\", in.messageContext.getMessage().getBody());"
         }
       },
       "visual" : {
-        "at" : { "x" : 288, "y" : 176 }
+        "at" : { "x" : 336, "y" : 176 }
       },
       "connect" : [
         { "id" : "f14", "to" : "f13" }
@@ -40,7 +41,7 @@
       "id" : "f13",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 480, "y" : 176 },
+        "at" : { "x" : 528, "y" : 176 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     }, {
@@ -67,7 +68,7 @@
         "dialog" : "com.axonivy.connector.azure.servicebus.connector.demo.Demo:start()"
       },
       "visual" : {
-        "at" : { "x" : 288, "y" : 64 }
+        "at" : { "x" : 336, "y" : 64 }
       },
       "connect" : [
         { "id" : "f21", "to" : "f20" }
@@ -76,8 +77,40 @@
       "id" : "f20",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 480, "y" : 64 },
+        "at" : { "x" : 528, "y" : 64 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
+    }, {
+      "id" : "f0",
+      "type" : "Alternative",
+      "name" : "error?",
+      "config" : {
+        "conditions" : {
+          "f1" : "in.#errorContext == null"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 208, "y" : 176 },
+        "labelOffset" : { "y" : -24 }
+      },
+      "connect" : [
+        { "id" : "f1", "to" : "f11", "color" : "default" },
+        { "id" : "f3", "to" : "f2", "via" : [ { "x" : 208, "y" : 272 } ] }
+      ]
+    }, {
+      "id" : "f2",
+      "type" : "Script",
+      "name" : "Received an error",
+      "config" : {
+        "output" : {
+          "code" : "ivy.log.info(\"Azure Service Bus Event received error: ''{0}''\", in.errorContext);"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 336, "y" : 272 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f13", "via" : [ { "x" : 464, "y" : 272 }, { "x" : 464, "y" : 176 } ] }
+      ]
     } ]
 }
