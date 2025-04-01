@@ -1,0 +1,127 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "195F21D5D9EFFE5D",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "com.axonivy.connector.azure.servicebus.connector.demo.Demo.DemoData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "signature" : "start",
+        "input" : {
+          "map" : {
+            "out.maxMessages" : "5",
+            "out.maxWaitTimeSeconds" : "5",
+            "out.send" : "\"Demo Message created \" +  java.time.LocalDateTime.now()"
+          }
+        },
+        "guid" : "195F21D5DA09958C"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "send",
+      "config" : {
+        "guid" : "195F22AB83624460"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 160 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 160 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f9",
+      "type" : "HtmlDialogEventStart",
+      "name" : "receive",
+      "config" : {
+        "guid" : "195F22C44C4CA53D"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 240 }
+      },
+      "connect" : [
+        { "id" : "f11", "to" : "f5" }
+      ]
+    }, {
+      "id" : "f10",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 240 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "SubProcessCall",
+      "name" : "Send",
+      "config" : {
+        "processCall" : "AzureServiceBusSend:send(String,com.azure.messaging.servicebus.ServiceBusMessage)",
+        "call" : {
+          "map" : {
+            "param.configName" : "in.configName",
+            "param.message" : "new com.azure.messaging.servicebus.ServiceBusMessage(in.send)"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 160 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f7", "color" : "default" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "SubProcessCall",
+      "name" : "Receive",
+      "config" : {
+        "processCall" : "AzureServiceBusReceive:receive(String,Integer,java.time.Duration)",
+        "call" : {
+          "map" : {
+            "param.configName" : "in.configName",
+            "param.maxMessages" : "in.maxMessages",
+            "param.maxWaitTime" : "java.time.Duration.ofSeconds(in.maxWaitTimeSeconds)"
+          }
+        },
+        "output" : {
+          "code" : [
+            "import com.azure.messaging.servicebus.ServiceBusReceivedMessage;",
+            "",
+            "out.message = \"Received: %d messages%n\".formatted(result.messages.size());",
+            "",
+            "for(ServiceBusReceivedMessage message : result.messages) {",
+            "  out.message += \"Message: %s%n\".formatted(message.getBody());",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 240 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f10", "color" : "default" }
+      ]
+    } ]
+}

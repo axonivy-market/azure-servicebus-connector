@@ -5,63 +5,17 @@
     "data" : "com.axonivy.connector.azure.servicebus.connector.demo.DemoData"
   },
   "elements" : [ {
-      "id" : "f0",
-      "type" : "RequestStart",
-      "name" : "demoSend",
-      "config" : {
-        "signature" : "demoSend",
-        "request" : {
-          "name" : "Demo Send"
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 64 }
-      },
-      "connect" : [
-        { "id" : "f4", "to" : "f2" }
-      ]
-    }, {
-      "id" : "f1",
-      "type" : "TaskEnd",
-      "visual" : {
-        "at" : { "x" : 480, "y" : 64 },
-        "labelOffset" : { "x" : 13, "y" : 33 }
-      }
-    }, {
-      "id" : "f5",
-      "type" : "RequestStart",
-      "name" : "demoReceive",
-      "config" : {
-        "signature" : "demoReceive",
-        "request" : {
-          "name" : "Demo Receive"
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 176 }
-      },
-      "connect" : [
-        { "id" : "f7", "to" : "f3" }
-      ]
-    }, {
-      "id" : "f8",
-      "type" : "TaskEnd",
-      "visual" : {
-        "at" : { "x" : 640, "y" : 176 },
-        "labelOffset" : { "x" : 13, "y" : 33 }
-      }
-    }, {
       "id" : "f10",
       "type" : "ProgramStart",
       "config" : {
         "javaClass" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusStartEventBean",
         "userConfig" : {
-          "azureServiceBusConfigurationNameField" : "demo"
+          "azureServiceBusConfigurationNameField" : "demo2"
         },
         "link" : "eventLink.ivp"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 320 },
+        "at" : { "x" : 96, "y" : 176 },
         "labelOffset" : { "x" : 13, "y" : 33 },
         "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
@@ -77,7 +31,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 288, "y" : 320 }
+        "at" : { "x" : 288, "y" : 176 }
       },
       "connect" : [
         { "id" : "f14", "to" : "f13" }
@@ -86,75 +40,44 @@
       "id" : "f13",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 480, "y" : 320 },
+        "at" : { "x" : 480, "y" : 176 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     }, {
-      "id" : "f2",
-      "type" : "SubProcessCall",
-      "name" : "Send",
+      "id" : "f17",
+      "type" : "RequestStart",
+      "name" : "start",
       "config" : {
-        "processCall" : "AzureServiceBusSend:send(String,com.azure.messaging.servicebus.ServiceBusMessage)",
-        "call" : {
-          "map" : {
-            "param.configName" : "\"demo\"",
-            "param.message" : "new com.azure.messaging.servicebus.ServiceBusMessage(\"Test message: \" + java.time.LocalDateTime.now())"
-          }
+        "signature" : "start",
+        "request" : {
+          "name" : "Demo GUI"
         }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f19", "to" : "f18" }
+      ]
+    }, {
+      "id" : "f18",
+      "type" : "DialogCall",
+      "name" : "Demo GUI",
+      "config" : {
+        "dialog" : "com.axonivy.connector.azure.servicebus.connector.demo.Demo:start()"
       },
       "visual" : {
         "at" : { "x" : 288, "y" : 64 }
       },
       "connect" : [
-        { "id" : "f6", "to" : "f1" }
+        { "id" : "f21", "to" : "f20" }
       ]
     }, {
-      "id" : "f3",
-      "type" : "SubProcessCall",
-      "name" : "Receive",
-      "config" : {
-        "processCall" : "AzureServiceBusReceive:receive(Integer,java.time.Duration)",
-        "call" : {
-          "map" : {
-            "param.maxMessages" : "1",
-            "param.maxWaitTime" : "java.time.Duration.ofSeconds(5)"
-          }
-        },
-        "output" : {
-          "map" : {
-            "out" : "in",
-            "out.messages" : "result.messages"
-          }
-        }
-      },
+      "id" : "f20",
+      "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 288, "y" : 176 }
-      },
-      "connect" : [
-        { "id" : "f9", "to" : "f15" }
-      ]
-    }, {
-      "id" : "f15",
-      "type" : "Script",
-      "name" : "Log",
-      "config" : {
-        "output" : {
-          "code" : [
-            "import com.azure.messaging.servicebus.ServiceBusReceivedMessage;",
-            "",
-            "ivy.log.info(\"Received {0} messages\", in.messages.size());",
-            "",
-            "for(ServiceBusReceivedMessage message : in.messages) {",
-            "  ivy.log.info(\"Message: {0}\", message.getBody());",
-            "}"
-          ]
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 480, "y" : 176 }
-      },
-      "connect" : [
-        { "id" : "f16", "to" : "f8", "color" : "default" }
-      ]
+        "at" : { "x" : 480, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
     } ]
 }
