@@ -1,5 +1,0 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
-Variables:
-  azure-messaging-servicebus-connector:
-    standard:
-      dummy: ""
