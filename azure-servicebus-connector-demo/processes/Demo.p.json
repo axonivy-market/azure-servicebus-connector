@@ -86,5 +86,43 @@
         "at" : { "x" : 480, "y" : 176 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
+    }, {
+      "id" : "f10",
+      "type" : "ProgramStart",
+      "config" : {
+        "javaClass" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusStartEventBean",
+        "userConfig" : {
+          "azureServiceBusConfigurationNameField" : "demo"
+        },
+        "link" : "eventLink.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 320 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f11" }
+      ]
+    }, {
+      "id" : "f11",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : "ivy.log.info(\"Azure Service Bus Event: message: {0} error: {1}\", in.#messageContext, in.#errorContext);"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 288, "y" : 320 }
+      },
+      "connect" : [
+        { "id" : "f14", "to" : "f13" }
+      ]
+    }, {
+      "id" : "f13",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 480, "y" : 320 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
     } ]
 }
