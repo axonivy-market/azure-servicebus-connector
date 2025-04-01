@@ -19,6 +19,9 @@ public class AzureServiceBusService {
 	private static final AzureServiceBusService INSTANCE = new AzureServiceBusService();
 	private static com.azure.messaging.servicebus.ServiceBusSenderClient sender;
 	private static final String AZURE_SERVICEBUS_CONNECTOR_GLOBAL_VARIABLE = "azure-servicebus-connector";
+	private static final String AZURE_SERVICEBUS_CONNECTOR_STRING_GLOBAL_VARIABLE = "connection-string";
+	private static final String AZURE_SERVICEBUS_QUEUE_GLOBAL_VARIABLE = "queue";
+
 	private static final Map<String, ServiceBusSenderClient> senders = new HashMap<>();
 
 	private AzureServiceBusService() {
@@ -36,8 +39,8 @@ public class AzureServiceBusService {
 		var sender = senders.get(configurationName);
 		if(sender == null) {
 			var props = getConfigurationProperties(configurationName);
-			var connString = "xxx";
-			var queueName = "yyy";
+			var connString = props.getProperty(AZURE_SERVICEBUS_CONNECTOR_STRING_GLOBAL_VARIABLE);
+			var queueName = props.getProperty(AZURE_SERVICEBUS_QUEUE_GLOBAL_VARIABLE);
 
 			Ivy.log().info("Building sender for queue ''{0}''", queueName);
 			sender = new ServiceBusClientBuilder()

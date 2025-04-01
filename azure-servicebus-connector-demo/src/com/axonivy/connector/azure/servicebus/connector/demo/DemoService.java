@@ -8,6 +8,7 @@ import com.azure.messaging.servicebus.ServiceBusMessage;
 import ch.ivyteam.ivy.environment.Ivy;
 
 public class DemoService {
+	private static String DEMO_CONFIG = "demo";
 	private static DemoService INSTANCE = new DemoService();
 
 	public static DemoService get() {
@@ -18,12 +19,11 @@ public class DemoService {
 		String testMsg = "The current time is %s".formatted(LocalDateTime.now());
 		Ivy.log().info("Sending text as message: ''{0}''", testMsg);
 
+		var sender = AzureServiceBusService.get().sender(DEMO_CONFIG);
+
 		var msg = new ServiceBusMessage(testMsg);
-
-		AzureServiceBusService.get();
-
-		//		client().sendMessage(msg);
-		//		Ivy.log().info("Sent message via client: ''{0}''.", sender);
+		sender.sendMessage(msg);
+		Ivy.log().info("Sent message via client: ''{0}''.", sender);
 	}
 
 }
