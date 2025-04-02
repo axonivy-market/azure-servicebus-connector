@@ -4,10 +4,13 @@
   "namespace" : "com.axonivy.connector.azure.servicebus",
   "isBusinessCaseData" : false,
   "fields" : [ {
-    "name" : "message",
-    "type" : "com.azure.messaging.servicebus.ServiceBusMessage"
-  }, {
     "name" : "configName",
     "type" : "String"
+  }, {
+    "name" : "senderSupplier",
+    "type" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusSenderSupplier"
+  }, {
+    "name" : "message",
+    "type" : "com.azure.messaging.servicebus.ServiceBusMessage"
   } ]
 }
