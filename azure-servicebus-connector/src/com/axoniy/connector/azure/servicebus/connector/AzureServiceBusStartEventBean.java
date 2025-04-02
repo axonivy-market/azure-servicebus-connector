@@ -22,7 +22,9 @@ import ch.ivyteam.ivy.service.ServiceException;
 import ch.ivyteam.log.Logger;
 
 /**
- * {@link IProcessStartEventBean} to listen on the Azure Service Bus. 
+ * {@link IProcessStartEventBean} to listen on the Azure Service Bus.
+ * 
+ * You may override this class to supply your own processor.
  */
 public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean {
 	private static final String AZURE_SERVICEBUS_CONFIGURATION_NAME_FIELD = "azureServiceBusConfigurationNameField";
@@ -45,13 +47,23 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 	public void start(IProgressMonitor monitor) throws ServiceException {
 		var configurationName = getAzureServiceBusConfigurationName();
 
-		log().debug("Starting Azure Service Bus processor for configuration name: ''{}''", configurationName);
+		log().debug("Starting Azure Service Bus processor for configuration name: ''{0}''", configurationName);
 
-		processor = AzureServiceBusService.get().processor(configurationName, this::processMessage, this::processError);
+		processor = createProcessor(configurationName);
 		processor.start();
 
 		super.start(monitor);
 		log().info("Started");
+	}
+
+	/**
+	 * Override this function to create a {@link ServiceBusProcessorClient} with special settings not supported in global variables.
+	 * 
+	 * @param configurationName
+	 * @return
+	 */
+	protected ServiceBusProcessorClient createProcessor(String configurationName) {
+		return AzureServiceBusService.get().processor(configurationName, this::processMessage, this::processError);
 	}
 
 	protected void processMessage(ServiceBusReceivedMessageContext messageContext) {
@@ -105,7 +117,7 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 					Configuration name:
 					Name of a collection of global variables below
 					%s which defines a specific Kafka consumer configuration.
-					""", AzureServiceBusService.get().getAzureServicebusConnectorGlobalVariableName());
+					""", AzureServiceBusService.Configuration.getAzureServicebusGlobalVariable());
 			ui.label(helpTopic).multiline().create();
 		}
 	}

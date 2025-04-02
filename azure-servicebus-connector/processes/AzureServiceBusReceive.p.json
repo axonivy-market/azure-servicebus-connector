@@ -36,7 +36,8 @@
         "connector"
       ],
       "visual" : {
-        "at" : { "x" : 96, "y" : 64 },
+        "at" : { "x" : 192, "y" : 64 },
+        "labelOffset" : { "x" : 25, "y" : 49 },
         "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
       "connect" : [
@@ -46,7 +47,7 @@
       "id" : "f6",
       "type" : "CallSubEnd",
       "visual" : {
-        "at" : { "x" : 448, "y" : 64 },
+        "at" : { "x" : 544, "y" : 64 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     }, {
@@ -58,15 +59,89 @@
           "code" : [
             "import com.axoniy.connector.azure.servicebus.connector.AzureServiceBusService;",
             "",
-            "out.messages = AzureServiceBusService.get().receiver(out.configName).receiveMessages(out.maxMessages, out.maxWaitTime).stream().toList();"
+            "out.messages = AzureServiceBusService.get()",
+            "  .receiver(out.configName)",
+            "  .receiveMessages(out.maxMessages, out.maxWaitTime)",
+            "  .stream()",
+            "  .toList();"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 272, "y" : 64 }
+        "at" : { "x" : 368, "y" : 64 }
       },
       "connect" : [
         { "id" : "f1", "to" : "f6", "color" : "default" }
       ]
+    }, {
+      "id" : "f2",
+      "type" : "CallSubStart",
+      "name" : "receive(String,AzureServiceBusReceiverSupplier,Integer,Duration)",
+      "config" : {
+        "signature" : "receive",
+        "input" : {
+          "params" : [
+            { "name" : "configName", "type" : "String", "desc" : "" },
+            { "name" : "receiverSupplier", "type" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusReceiverSupplier", "desc" : "" },
+            { "name" : "maxMessages", "type" : "Integer", "desc" : "" },
+            { "name" : "maxWaitTime", "type" : "java.time.Duration", "desc" : "" }
+          ],
+          "map" : {
+            "out.configName" : "param.configName",
+            "out.maxMessages" : "param.maxMessages",
+            "out.maxWaitTime" : "param.maxWaitTime",
+            "out.receiverSupplier" : "param.receiverSupplier"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "messages", "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>", "desc" : "" }
+          ],
+          "map" : {
+            "result.messages" : "in.messages"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 192, "y" : 192 },
+        "labelOffset" : { "x" : 33, "y" : 49 },
+        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "name" : "Receive",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axoniy.connector.azure.servicebus.connector.AzureServiceBusService;",
+            "",
+            "out.messages = AzureServiceBusService.get()",
+            "  .receiver(out.configName, out.receiverSupplier)",
+            "  .receiveMessages(out.maxMessages, out.maxWaitTime)",
+            "  .stream()",
+            "  .toList();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 368, "y" : 192 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f4", "color" : "default" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 192 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
     } ]
 }

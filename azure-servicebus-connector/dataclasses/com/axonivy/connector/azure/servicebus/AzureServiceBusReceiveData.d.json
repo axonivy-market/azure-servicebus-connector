@@ -7,15 +7,16 @@
     "name" : "configName",
     "type" : "String"
   }, {
+    "name" : "receiverSupplier",
+    "type" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusReceiverSupplier"
+  }, {
     "name" : "messages",
     "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>"
   }, {
     "name" : "maxMessages",
-    "type" : "java.lang.Integer",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "java.lang.Integer"
   }, {
     "name" : "maxWaitTime",
-    "type" : "java.time.Duration",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "java.time.Duration"
   } ]
 }

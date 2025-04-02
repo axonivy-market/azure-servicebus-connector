@@ -2,12 +2,11 @@
 Variables:
   azure-servicebus-connector:
     demo:
-      inherit: 'standard'
-      connection-string: ''
+      connectionString: ''
     demo1:
       inherit: 'demo'
-      queue: 'demo1'
+      queueName: 'demo1'
     demo2:
       inherit: 'demo'
-      queue: 'demo2'
+      queueName: 'demo2'
     
