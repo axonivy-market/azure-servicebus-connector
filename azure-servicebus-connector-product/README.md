@@ -14,12 +14,14 @@ messages.
 The demo provides a dialog with buttons for sending and receiving messages
 for different configurations.
 
-To see the effect of sending messages you have multiple options:
+To see the effect of sending messages you have multiple options. In the GUI
+use the button to receive a maximum number of messages from a configuration
+within a max wait time.
 
 ### AzureServiceBusStartEventBean
 
 The demo also contains examples of using an `AzureServiceBusStartEventBean`.
-In the Demo, the bean will listen on the configuration demo2 and simply
+In the Demo, the bean will listen for configuration `demo2` and simply
 log the message in the run-time log.
 
 ### Other tools
@@ -38,11 +40,19 @@ name `demosubscription`.
 
 ## Usage
 
+The connector currently supports connecting with a `connectionString` or with the
+`fullyQualifiedName` and a `DefaultAzureCredentialBuilder`. Both values can be
+configured for every configuration. If you want to share this configuration between
+multiple queues or topics, it is a good idea to create a base configuration and
+`iherit` from it in other places. Please see the Azure documentation for a description
+of these methods.
+
 The connector provides simple send and receive methods and automatically creates senders
 and receivers based on global variables configuration.
 
 If any special configuration is needed, please implement an `AzureServiceBusSenderSupplier`
 which creates a sender or an `AzureServiceBusReceiverSupplier` which creates a receiver.
+You might want to look into the `AzureServiceBusService` to see how this is done.
 Senders and receivers created in by Suppliers are identified by a configuration name and
 will be cached and re-used in the same way as their simple counterparts.
 To create a specific processor, you should extend the provided `AzureServiceBusStartEventBean`
