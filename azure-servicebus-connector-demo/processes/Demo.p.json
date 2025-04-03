@@ -54,6 +54,9 @@
           "name" : "Demo GUI"
         }
       },
+      "tags" : [
+        "demo"
+      ],
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
