@@ -14,9 +14,12 @@
         "input" : {
           "map" : {
             "out.maxMessages" : "5",
-            "out.maxWaitTimeSeconds" : "5",
-            "out.send" : "\"Demo Message created \" +  java.time.LocalDateTime.now()"
-          }
+            "out.maxWaitTimeSeconds" : "5"
+          },
+          "code" : [
+            "out.send = \"Demo Message created \" +  java.time.LocalDateTime.now();",
+            "out.oldSend = out.send;"
+          ]
         },
         "guid" : "195F21D5DA09958C"
       },
@@ -38,7 +41,16 @@
       "type" : "HtmlDialogEventStart",
       "name" : "send",
       "config" : {
-        "guid" : "195F22AB83624460"
+        "guid" : "195F22AB83624460",
+        "output" : {
+          "code" : [
+            "import org.apache.commons.lang3.StringUtils;",
+            "if(StringUtils.isBlank(out.send)) {",
+            "  out.send = \"Demo Message created \" +  java.time.LocalDateTime.now();",
+            "  out.oldSend = out.send;",
+            "}"
+          ]
+        }
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 160 }
@@ -84,6 +96,16 @@
             "param.configName" : "in.configName",
             "param.message" : "new com.azure.messaging.servicebus.ServiceBusMessage(in.send)"
           }
+        },
+        "output" : {
+          "code" : [
+            "out.message += \"Sent a message to '%s':%n\".formatted(out.configName);",
+            "out.message += \"%s:%n\".formatted(out.send);",
+            "if(out.send.equals(out.oldSend)) {",
+            "  out.send = \"Demo Message created \" +  java.time.LocalDateTime.now();",
+            "  out.oldSend = out.send;",
+            "}"
+          ]
         }
       },
       "visual" : {
@@ -122,6 +144,41 @@
       },
       "connect" : [
         { "id" : "f12", "to" : "f10", "color" : "default" }
+      ]
+    }, {
+      "id" : "f13",
+      "type" : "HtmlDialogEventStart",
+      "name" : "clear",
+      "config" : {
+        "guid" : "195FAC397BC13708"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 320 }
+      },
+      "connect" : [
+        { "id" : "f15", "to" : "f16" }
+      ]
+    }, {
+      "id" : "f14",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 320 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f16",
+      "type" : "Script",
+      "name" : "Clear",
+      "config" : {
+        "output" : {
+          "code" : "out.message = \"\";"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 320 }
+      },
+      "connect" : [
+        { "id" : "f17", "to" : "f14", "color" : "default" }
       ]
     } ]
 }

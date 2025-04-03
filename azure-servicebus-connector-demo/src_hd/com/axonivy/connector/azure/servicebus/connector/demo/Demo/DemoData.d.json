@@ -23,5 +23,9 @@
     "name" : "maxWaitTimeSeconds",
     "type" : "java.lang.Integer",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "oldSend",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }
