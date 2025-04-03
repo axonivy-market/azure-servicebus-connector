@@ -2,7 +2,7 @@
 
 [![CI Build](https://github.com/axonivy-market/azure-servicebus-connector/actions/workflows/ci.yml/badge.svg)](https://github.com/axonivy-market/azure-servicebus-connector/actions/workflows/ci.yml)
 
-Connect to the Azure Service Bus.
+Connect to the [Azure Service Bus](https://azure.microsoft.com/products/service-bus/).
 
 This connector gives you access to the Azure Service Bus. It allows to
 define multiple sending and receiving connections to queues and topics.
