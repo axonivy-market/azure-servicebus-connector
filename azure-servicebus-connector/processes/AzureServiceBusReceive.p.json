@@ -38,6 +38,7 @@
       "visual" : {
         "at" : { "x" : 192, "y" : 64 },
         "labelOffset" : { "x" : 25, "y" : 49 },
+        "description" : "Receive messages from the Azure Service Bus.",
         "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
       "connect" : [
@@ -108,6 +109,7 @@
       "visual" : {
         "at" : { "x" : 192, "y" : 192 },
         "labelOffset" : { "x" : 33, "y" : 49 },
+        "description" : "Receive messages from the Azure Service Bus.",
         "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
       "connect" : [
