@@ -28,6 +28,7 @@
       "visual" : {
         "at" : { "x" : 192, "y" : 64 },
         "labelOffset" : { "x" : 9, "y" : 49 },
+        "description" : "Send a message to the Azure Service Bus.",
         "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
       "connect" : [
@@ -84,6 +85,7 @@
       "visual" : {
         "at" : { "x" : 192, "y" : 192 },
         "labelOffset" : { "x" : 49, "y" : 49 },
+        "description" : "Send a message to the Azure Service Bus.",
         "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
       "connect" : [
