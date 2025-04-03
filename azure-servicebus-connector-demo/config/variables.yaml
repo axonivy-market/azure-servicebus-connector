@@ -2,11 +2,15 @@
 Variables:
   azure-servicebus-connector:
     demo:
-      connectionString: ''
+      fullyQualifiedNamespace: ''
     demo1:
       inherit: 'demo'
       queueName: 'demo1'
     demo2:
       inherit: 'demo'
       queueName: 'demo2'
+    demo3:
+      inherit: 'demo'
+      topicName: 'demo3'
+      subscriptionName: 'demosubscription'
     
