@@ -1,14 +1,9 @@
-<!--
-Dear developer !     
+# Azure Service Bus Connector
 
-When you create your very valuable documentation, please be aware that this  is not only published on github. With this file we provide a German translation of the description-tab, i.e. https://market.axonivy.com/adobe-acrobat-connector#tab-description. Please contact us if you need support with the German translation.
--->
+Verbindung zum [Azure Service Bus](https://azure.microsoft.com/products/service-bus/).
 
-# MEIN-PRODUKT-NAME
+Dieser Connector verbindet den Azure Service Bus. Er unterstützt mehrere
+sendende und empfangende Verbindungen zu Queues und Topics.
 
-Bitte übersetze mindestens das "Description"-Chapter aus https://github.com/axonivy-market/market-product/blob/master/MY-PRODUCT-NAME-product/README.md. Es wird auf unserer Homepage angezeigt.
-Falls Du darüber hinaus auch die anderen Chapter übersetzt, werden auch diese auf der Homepage auf Deutsch angezeigt.
-
-<!--
-Die Erläuterungen unter „MEIN-PRODUKT-NAME“ werden z.B. für den  Adobe Konnektor hier angezeigt: https://market.axonivy.com/adobe-acrobat-connector#tab-description wenn ein Nutzer Deutsch als Anzeigesprache ausgewählt hat.
--->
+Zusätzlich stellt der Connector eine `IProcessStartEventBean` bereit,
+die beim Empfang einer Azure Service Bus Message einen Ivy process starten kann.
