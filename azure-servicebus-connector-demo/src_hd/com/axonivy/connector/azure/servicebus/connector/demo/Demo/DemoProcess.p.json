@@ -100,7 +100,7 @@
         "output" : {
           "code" : [
             "out.message += \"Sent a message to '%s':%n\".formatted(out.configName);",
-            "out.message += \"%s:%n\".formatted(out.send);",
+            "out.message += \"%s%n\".formatted(out.send);",
             "if(out.send.equals(out.oldSend)) {",
             "  out.send = \"Demo Message created \" +  java.time.LocalDateTime.now();",
             "  out.oldSend = out.send;",

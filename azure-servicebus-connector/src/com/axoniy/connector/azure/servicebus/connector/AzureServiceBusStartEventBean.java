@@ -111,7 +111,7 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 
 		@Override
 		public void initUiFields(ExtensionUiBuilder ui) {
-			ui.label("Configuration Base:").create();
+			ui.label("Configuration Name:").create();
 			ui.textField(AZURE_SERVICEBUS_CONFIGURATION_NAME_FIELD).create();
 			String helpTopic = String.format("""
 					Configuration name:
