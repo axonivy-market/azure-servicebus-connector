@@ -10,7 +10,7 @@
       "config" : {
         "javaClass" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusStartEventBean",
         "userConfig" : {
-          "azureServiceBusConfigurationNameField" : "demo2"
+          "azureServiceBusConfigurationNameField" : "queue2"
         },
         "link" : "eventLink.ivp"
       },
