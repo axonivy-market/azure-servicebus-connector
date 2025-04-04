@@ -40,7 +40,7 @@ or directly in the Azure Service Portal.
 
 Start by cloning the repository https://github.com/Azure/azure-service-bus-emulator-installer.
 Change directory to `Docker-Compose-Template`.
-Create a file named `.env' with the following content:
+Create a file named `.env` with the following content:
 
 ```
 # Dear Bug Hunter,
