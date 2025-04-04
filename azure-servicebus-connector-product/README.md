@@ -38,9 +38,9 @@ or directly in the Azure Service Portal.
 
 ### Azure Service Bus Emulator
 
-Start by cloning the repository https://github.com/Azure/azure-service-bus-emulator-installer.
-Change directory to `Docker-Compose-Template`.
-Create a file named `.env` with the following content:
+- Start by cloning the repository https://github.com/Azure/azure-service-bus-emulator-installer
+- Change directory to `Docker-Compose-Template`
+- Create a file named `.env` with the following content:
 
 ```
 SQL_PASSWORD=AxonIvy-2025
