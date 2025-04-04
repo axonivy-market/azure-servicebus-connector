@@ -26,6 +26,7 @@ public class AzureServiceBusService {
 	private static final AzureServiceBusService INSTANCE = new AzureServiceBusService();
 	private static final Map<String, ServiceBusSenderClient> senders = new HashMap<>();
 	private static final Map<String, ServiceBusReceiverClient> receivers = new HashMap<>();
+	private static final GlobalVariablesSupplier GLOBAL_VARIABLES_SUPPLIER = new GlobalVariablesSupplier();
 
 	private AzureServiceBusService() {
 	}
@@ -41,7 +42,7 @@ public class AzureServiceBusService {
 	 * @return
 	 */
 	public ServiceBusSenderClient sender(String configurationName) {
-		return sender(configurationName, this::senderSupplierFromGlobalVariables);
+		return sender(configurationName, GLOBAL_VARIABLES_SUPPLIER);
 	}
 
 	/**
@@ -54,38 +55,11 @@ public class AzureServiceBusService {
 	public synchronized ServiceBusSenderClient sender(String configurationName, AzureServiceBusSenderSupplier senderSupplier) {
 		var sender = senders.get(configurationName);
 		if(sender == null) {
-			sender = senderSupplier.supply(configurationName);
+			sender = senderSupplier.supplySender(configurationName);
 			senders.put(configurationName, sender);
 		}
 		return sender;
 
-	}
-
-	/**
-	 * Supply a sender by configuration from global variables.
-	 * 
-	 * @param configurationName
-	 * @return
-	 */
-	public ServiceBusSenderClient senderSupplierFromGlobalVariables(String configurationName) {
-		Ivy.log().info("Building sender for configuration ''{0}''.", configurationName);
-		var conf = Configuration.fromGlobalVariables(configurationName);
-
-		var builder = createBuilder(conf)
-				.sender();
-
-		if(isSet(conf.queueName())) {
-			builder = builder.queueName(conf.queueName());
-		}
-
-		if(isSet(conf.topicName())) {
-			builder = builder.topicName(conf.topicName());
-		}
-
-		var sender = builder
-				.buildClient();
-
-		return sender;
 	}
 
 	/**
@@ -95,7 +69,7 @@ public class AzureServiceBusService {
 	 * @return
 	 */
 	public ServiceBusReceiverClient receiver(String configurationName) {
-		return receiver(configurationName, this::receiverSupplierFromGlobalVariables);
+		return receiver(configurationName, GLOBAL_VARIABLES_SUPPLIER);
 	}
 
 
@@ -109,39 +83,9 @@ public class AzureServiceBusService {
 	public synchronized ServiceBusReceiverClient receiver(String configurationName, AzureServiceBusReceiverSupplier receiverSupplier) {
 		var receiver = receivers.get(configurationName);
 		if(receiver == null) {
-			receiver = receiverSupplier.supply(configurationName);
+			receiver = receiverSupplier.supplyReceiver(configurationName);
 			receivers.put(configurationName, receiver);
 		}
-		return receiver;
-	}
-
-	/**
-	 * Supply a receiver by configuration from global variables.
-	 * 
-	 * @param configurationName
-	 * @return
-	 */
-	public ServiceBusReceiverClient receiverSupplierFromGlobalVariables(String configurationName) {
-		Ivy.log().info("Building receiver for configuration ''{0}''.", configurationName);
-		var conf = Configuration.fromGlobalVariables(configurationName);
-
-		var builder = createBuilder(conf)
-				.receiver();
-
-		if(isSet(conf.queueName())) {
-			builder = builder.queueName(conf.queueName());
-		}
-
-		if(isSet(conf.topicName())) {
-			builder = builder.topicName(conf.topicName());
-		}
-
-		if(isSet(conf.subscriptionName())) {
-			builder = builder.subscriptionName(conf.subscriptionName());
-		}
-
-		var receiver = builder
-				.buildClient();
 		return receiver;
 	}
 
@@ -180,7 +124,7 @@ public class AzureServiceBusService {
 		return processor;
 	}
 
-	public ServiceBusClientBuilder createBuilder(Configuration conf) {
+	public static ServiceBusClientBuilder createBuilder(Configuration conf) {
 		var builder = new ServiceBusClientBuilder();
 
 		if(isSet(conf.connectionString())) {
@@ -195,12 +139,75 @@ public class AzureServiceBusService {
 		return builder;
 	}
 
-	protected boolean isSet(String value) {
+	protected static boolean isSet(String value) {
 		return StringUtils.isNotBlank(value);
 	}
 
+	protected static class GlobalVariablesSupplier implements AzureServiceBusSenderSupplier, AzureServiceBusReceiverSupplier {
+		/**
+		 * Supply a sender by configuration from global variables.
+		 * 
+		 * @param configurationName
+		 * @return
+		 */
+		@Override
+		public ServiceBusSenderClient supplySender(String configurationName) {
+			Ivy.log().info("Building sender for configuration ''{0}''.", configurationName);
+			var conf = Configuration.fromGlobalVariables(configurationName);
 
-	public record Configuration(String fullyQualifiedNamespace, String connectionString, String queueName, String topicName, String subscriptionName) {
+			var builder = createBuilder(conf)
+					.sender();
+
+			if(isSet(conf.queueName())) {
+				builder = builder.queueName(conf.queueName());
+			}
+
+			if(isSet(conf.topicName())) {
+				builder = builder.topicName(conf.topicName());
+			}
+
+			var sender = builder
+					.buildClient();
+
+			return sender;
+		}
+
+		/**
+		 * Supply a receiver by configuration from global variables.
+		 * 
+		 * @param configurationName
+		 * @return
+		 */
+		@Override
+		public ServiceBusReceiverClient supplyReceiver(String configurationName) {
+			Ivy.log().info("Building receiver for configuration ''{0}''.", configurationName);
+			var conf = Configuration.fromGlobalVariables(configurationName);
+
+			var builder = createBuilder(conf)
+					.receiver();
+
+			if(isSet(conf.queueName())) {
+				builder = builder.queueName(conf.queueName());
+			}
+
+			if(isSet(conf.topicName())) {
+				builder = builder.topicName(conf.topicName());
+			}
+
+			if(isSet(conf.subscriptionName())) {
+				builder = builder.subscriptionName(conf.subscriptionName());
+			}
+
+			var receiver = builder
+					.buildClient();
+			return receiver;
+		}
+
+
+	}
+
+
+	protected record Configuration(String fullyQualifiedNamespace, String connectionString, String queueName, String topicName, String subscriptionName) {
 		private static final String AZURE_SERVICEBUS_GLOBAL_VARIABLE = "azure-servicebus-connector";
 		private static final String AZURE_SERVICEBUS_CONNECTION_STRING_GLOBAL_VARIABLE = "connectionString";
 		private static final String AZURE_SERVICEBUS_FULLY_QUALIFIED_NAMESPACE_GLOBAL_VARIABLE = "fullyQualifiedNamespace";
