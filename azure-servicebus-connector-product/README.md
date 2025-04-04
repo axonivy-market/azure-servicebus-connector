@@ -61,7 +61,7 @@ Configure the connection in your global variables `demo` section with
 
 In the Azure Service Portal create a namespace and queues and topics. The
 demo expects queues `queue.1`, `queue.2` and topic `topic.1` with a subscription
-name `subscription.1`. Configure the correct `connectionString` or `fullyQualifiedName` in the `demo` sestion of
+name `subscription.1`. Configure the correct `connectionString` or `fullyQualifiedName` in the `demo` section of
 global variables depending on the setup of you Azure Service Bus setup. For more information see the official documentation
 at [https://learn.microsoft.com/de-at/azure/service-bus-messaging/](https://learn.microsoft.com/de-at/azure/service-bus-messaging/).
 
