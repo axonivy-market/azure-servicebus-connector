@@ -21,7 +21,7 @@ within a max wait time.
 ### AzureServiceBusStartEventBean
 
 The demo also contains examples of using an `AzureServiceBusStartEventBean`.
-In the Demo, the bean will listen for configuration `demo2` and simply
+In the Demo, the bean will listen for configuration `queue2` and simply
 log the message in the run-time log.
 
 ### Other tools
@@ -39,6 +39,7 @@ or directly in the Azure Service Portal.
 ### Azure Service Bus Emulator
 
 - Start by cloning the repository https://github.com/Azure/azure-service-bus-emulator-installer
+- In the file `ServiceBus-Emulator\Config\Config.json` copy the block of `queue.1` and create another queue named `queue.2` (used to demonstrate automatic receive of messages) in the list of queues.
 - Change directory to `Docker-Compose-Template`
 - Create a file named `.env` with the following content:
 
@@ -56,11 +57,15 @@ Start docker compose from the same directory.
 
 `docker compose -f .\docker-compose-default.yml up -d`
 
+Configure the connection in your global variables `demo` section with
+`connectionString: 'Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;'`
+
 ### Azure Service Portal
 
 In the Azure Service Portal create a namespace and queues and topics. The
-demo expects queues `demo1`, `demo2` and topic `demo3` with a subscription
-name `demosubscription`. See the official documentation
+demo expects queues `queue.1`, `queue.2` and topic `topic.1` with a subscription
+name `subscription.1`. Configure the correct `connectionString` or `fullyQualifiedName` in the `demo` sestion of
+global variables depending on the setup of you Azure Service Bus setup. For more information see the official documentation
 at [https://learn.microsoft.com/de-at/azure/service-bus-messaging/](https://learn.microsoft.com/de-at/azure/service-bus-messaging/).
 
 ## Usage
