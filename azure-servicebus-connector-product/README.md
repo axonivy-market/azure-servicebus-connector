@@ -32,6 +32,27 @@ Use the Azure Servie Bus Explorer in the Azure Portal to see and send messages.
 
 Unpack the demo project to adapt all values described below.
 
+You can test the connector with the official
+[Azure Service Bus Emulator](https://github.com/Azure/azure-service-bus-emulator-installer)
+or directly in the Azure Service Portal.
+
+### Azure Service Bus Emulator
+
+Start by cloning the repository https://github.com/Azure/azure-service-bus-emulator-installer.
+Change directory to `Docker-Compose-Template`.
+Create a file named `.env' with the following content:
+
+```
+SQL_PASSWORD=AxonIvy-2025
+ACCEPT_EULA=y
+SQL_WAIT_INTERVAL=15
+CONFIG_PATH=..\ServiceBus-Emulator\Config\Config.json
+```
+
+Start docker compose from the same directory.
+
+`docker compose -f .\docker-compose-default.yml up -d`
+
 ### Azure Service Portal
 
 In the Azure Service Portal create a namespace and queues and topics. The
