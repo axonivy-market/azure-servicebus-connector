@@ -12,5 +12,5 @@ public interface AzureServiceBusReceiverSupplier {
 	 * @param configurationName
 	 * @return
 	 */
-	public ServiceBusReceiverClient supply(String configurationName);
+	public ServiceBusReceiverClient supplyReceiver(String configurationName);
 }
