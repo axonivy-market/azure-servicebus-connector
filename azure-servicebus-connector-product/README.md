@@ -36,7 +36,8 @@ Unpack the demo project to adapt all values described below.
 
 In the Azure Service Portal create a namespace and queues and topics. The
 demo expects queues `demo1`, `demo2` and topic `demo3` with a subscription
-name `demosubscription`.
+name `demosubscription`. See the official documentation
+at [https://learn.microsoft.com/de-at/azure/service-bus-messaging/](https://learn.microsoft.com/de-at/azure/service-bus-messaging/).
 
 ## Usage
 
@@ -44,7 +45,7 @@ The connector currently supports connecting with a `connectionString` or with th
 `fullyQualifiedName` and a `DefaultAzureCredentialBuilder`. Both values can be
 configured for every configuration. If you want to share this configuration between
 multiple queues or topics, it is a good idea to create a base configuration and
-`iherit` from it in other places. Please see the Azure documentation for a description
+`inherit` from it in other places. Please see the Azure documentation for a description
 of these methods.
 
 The connector provides simple send and receive methods and automatically creates senders
