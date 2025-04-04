@@ -2,15 +2,15 @@
 Variables:
   azure-servicebus-connector:
     demo:
-      fullyQualifiedNamespace: ''
-    demo1:
+      connectionString: 'Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;'
+    queue1:
       inherit: 'demo'
-      queueName: 'demo1'
-    demo2:
+      queueName: 'queue.1'
+    queue2:
       inherit: 'demo'
-      queueName: 'demo2'
-    demo3:
+      queueName: 'queue.2'
+    topic1:
       inherit: 'demo'
-      topicName: 'demo3'
-      subscriptionName: 'demosubscription'
+      topicName: 'topic.1'
+      subscriptionName: 'subscription.1'
     
