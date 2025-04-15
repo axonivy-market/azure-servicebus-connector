@@ -58,7 +58,7 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.axoniy.connector.azure.servicebus.connector.AzureServiceBusService;",
+            "import com.axonivy.connector.azure.servicebus.connector.AzureServiceBusService;",
             "",
             "out.messages = AzureServiceBusService.get()",
             "  .receiver(out.configName)",
@@ -83,7 +83,7 @@
         "input" : {
           "params" : [
             { "name" : "configName", "type" : "String", "desc" : "" },
-            { "name" : "receiverSupplier", "type" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusReceiverSupplier", "desc" : "" },
+            { "name" : "receiverSupplier", "type" : "com.axonivy.connector.azure.servicebus.connector.AzureServiceBusReceiverSupplier", "desc" : "" },
             { "name" : "maxMessages", "type" : "Integer", "desc" : "" },
             { "name" : "maxWaitTime", "type" : "java.time.Duration", "desc" : "" }
           ],
@@ -122,7 +122,7 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.axoniy.connector.azure.servicebus.connector.AzureServiceBusService;",
+            "import com.axonivy.connector.azure.servicebus.connector.AzureServiceBusService;",
             "",
             "out.messages = AzureServiceBusService.get()",
             "  .receiver(out.configName, out.receiverSupplier)",

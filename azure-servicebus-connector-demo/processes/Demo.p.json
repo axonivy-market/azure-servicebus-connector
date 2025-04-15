@@ -8,7 +8,7 @@
       "id" : "f10",
       "type" : "ProgramStart",
       "config" : {
-        "javaClass" : "com.axoniy.connector.azure.servicebus.connector.AzureServiceBusStartEventBean",
+        "javaClass" : "com.axonivy.connector.azure.servicebus.connector.AzureServiceBusStartEventBean",
         "userConfig" : {
           "azureServiceBusConfigurationNameField" : "queue2"
         },
