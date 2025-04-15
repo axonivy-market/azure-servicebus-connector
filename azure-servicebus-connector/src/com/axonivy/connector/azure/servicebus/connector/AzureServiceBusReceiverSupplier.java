@@ -1,4 +1,4 @@
-package com.axoniy.connector.azure.servicebus.connector;
+package com.axonivy.connector.azure.servicebus.connector;
 
 import com.azure.messaging.servicebus.ServiceBusReceiverClient;
 

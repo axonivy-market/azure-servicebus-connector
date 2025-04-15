@@ -1,4 +1,4 @@
-package com.axoniy.connector.azure.servicebus.connector;
+package com.axonivy.connector.azure.servicebus.connector;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -87,6 +87,14 @@ public class AzureServiceBusService {
 			receivers.put(configurationName, receiver);
 		}
 		return receiver;
+	}
+
+	/**
+	 * Clear all cached senders and receivers.
+	 */
+	public synchronized void reset() {
+		senders.clear();
+		receivers.clear();
 	}
 
 	/**
@@ -202,12 +210,9 @@ public class AzureServiceBusService {
 					.buildClient();
 			return receiver;
 		}
-
-
 	}
 
-
-	protected record Configuration(String fullyQualifiedNamespace, String connectionString, String queueName, String topicName, String subscriptionName) {
+	public record Configuration(String fullyQualifiedNamespace, String connectionString, String queueName, String topicName, String subscriptionName) {
 		private static final String AZURE_SERVICEBUS_GLOBAL_VARIABLE = "azureServicebusConnector";
 		private static final String AZURE_SERVICEBUS_CONNECTION_STRING_GLOBAL_VARIABLE = "connectionString";
 		private static final String AZURE_SERVICEBUS_FULLY_QUALIFIED_NAMESPACE_GLOBAL_VARIABLE = "fullyQualifiedNamespace";
