@@ -17,6 +17,9 @@ public class AzureServiceBusServiceTest {
 		assertThat(conf).isNotNull();
 
 		var nonExist = Configuration.fromGlobalVariables("foobar");
-		assertThat(nonExist).isNull();
+		assertThat(nonExist).isNotNull();
+		assertThat(nonExist.connectionString()).isNull();
+		assertThat(nonExist.queueName()).isNull();
+		assertThat(nonExist.topicName()).isNull();
 	}
 }
