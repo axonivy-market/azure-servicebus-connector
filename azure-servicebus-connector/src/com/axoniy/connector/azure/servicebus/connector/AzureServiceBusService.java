@@ -208,7 +208,7 @@ public class AzureServiceBusService {
 
 
 	protected record Configuration(String fullyQualifiedNamespace, String connectionString, String queueName, String topicName, String subscriptionName) {
-		private static final String AZURE_SERVICEBUS_GLOBAL_VARIABLE = "azure-servicebus-connector";
+		private static final String AZURE_SERVICEBUS_GLOBAL_VARIABLE = "azureServicebusConnector";
 		private static final String AZURE_SERVICEBUS_CONNECTION_STRING_GLOBAL_VARIABLE = "connectionString";
 		private static final String AZURE_SERVICEBUS_FULLY_QUALIFIED_NAMESPACE_GLOBAL_VARIABLE = "fullyQualifiedNamespace";
 		private static final String AZURE_SERVICEBUS_QUEUE_NAME_GLOBAL_VARIABLE = "queueName";
