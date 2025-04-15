@@ -298,12 +298,14 @@ public class AzureServiceBusService {
 				.withMessage("Found configuration loop with already seen configuration '%s".formatted(configurationName))
 				.build();
 			}
-			var whichAbs = "%s.%s.".formatted(AZURE_SERVICEBUS_GLOBAL_VARIABLE, configurationName);
 
+			var whichAbs = "%s.%s.".formatted(AZURE_SERVICEBUS_GLOBAL_VARIABLE, configurationName);
 			var inheritedProperties = new Properties();
 			var newProperties = new Properties();
 
-			for (var v : Ivy.var().all()) {
+			var all = Ivy.var().all();
+
+			for (var v : all) {
 				var name = v.name();
 				if(name.startsWith(whichAbs)) {
 					name = name.substring(whichAbs.length());
