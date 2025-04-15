@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
 Variables:
   # All Azure Service Bus Configurations are below this node.
-  azure-servicebus-connector:
+  azureServicebusConnector:
     # An example node to show the names of variables to use.
     example:
       # Connect by connection string.
