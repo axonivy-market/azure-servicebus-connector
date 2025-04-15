@@ -99,7 +99,7 @@ Configure the configuration name to use for the processor in the *Editor* tab of
 ### Configuration
 
 Configuration can be done in global variables where some simple inheritence mechanism
-is provided. All Azure Service Bus configuration is stored below the `azure-servicebus-connector` global
+is provided. All Azure Service Bus configuration is stored below the `azureServicebusConnector` global
 variable. See the variable descriptions for usage.
 
 
