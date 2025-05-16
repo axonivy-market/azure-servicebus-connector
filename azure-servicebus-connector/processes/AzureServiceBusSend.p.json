@@ -48,10 +48,8 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.axonivy.connector.azure.servicebus.connector.AzureServiceBusService;",
-            "AzureServiceBusService.get()",
-            "  .sender(out.configName)",
-            "  .sendMessage(out.message);"
+            "import com.axonivy.connector.azure.servicebus.AzureServiceBusService;",
+            "AzureServiceBusService.get().sender(out.configName).sendMessage(out.message);"
           ]
         }
       },
@@ -70,7 +68,7 @@
         "input" : {
           "params" : [
             { "name" : "configName", "type" : "String", "desc" : "" },
-            { "name" : "senderSupplier", "type" : "com.axonivy.connector.azure.servicebus.connector.AzureServiceBusSenderSupplier", "desc" : "" },
+            { "name" : "senderSupplier", "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusSenderSupplier", "desc" : "" },
             { "name" : "message", "type" : "com.azure.messaging.servicebus.ServiceBusMessage", "desc" : "" }
           ],
           "map" : {
@@ -98,7 +96,7 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.axonivy.connector.azure.servicebus.connector.AzureServiceBusService;",
+            "import com.axonivy.connector.azure.servicebus.AzureServiceBusService;",
             "",
             "AzureServiceBusService.get()",
             "  .sender(out.configName, out.senderSupplier)",
