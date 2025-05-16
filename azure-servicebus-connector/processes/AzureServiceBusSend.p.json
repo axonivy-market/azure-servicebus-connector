@@ -1,0 +1,121 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "195ECED08D780090",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.azure.servicebus.AzureServiceBusSendData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "send(String,ServiceBusMessage)",
+      "config" : {
+        "signature" : "send",
+        "input" : {
+          "params" : [
+            { "name" : "configName", "type" : "String", "desc" : "" },
+            { "name" : "message", "type" : "com.azure.messaging.servicebus.ServiceBusMessage", "desc" : "" }
+          ],
+          "map" : {
+            "out.configName" : "param.configName",
+            "out.message" : "param.message"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 192, "y" : 64 },
+        "labelOffset" : { "x" : 9, "y" : 49 },
+        "description" : "Send a message to the Azure Service Bus.",
+        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "name" : "Send",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.azure.servicebus.AzureServiceBusService;",
+            "AzureServiceBusService.get().sender(out.configName).sendMessage(out.message);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 368, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "CallSubStart",
+      "name" : "send(String,AzureServiceBusSenderSupplier,ServiceBusMessage)",
+      "config" : {
+        "signature" : "send",
+        "input" : {
+          "params" : [
+            { "name" : "configName", "type" : "String", "desc" : "" },
+            { "name" : "senderSupplier", "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusSenderSupplier", "desc" : "" },
+            { "name" : "message", "type" : "com.azure.messaging.servicebus.ServiceBusMessage", "desc" : "" }
+          ],
+          "map" : {
+            "out.configName" : "param.configName",
+            "out.message" : "param.message"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 192, "y" : 192 },
+        "labelOffset" : { "x" : 49, "y" : 49 },
+        "description" : "Send a message to the Azure Service Bus.",
+        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f6" }
+      ]
+    }, {
+      "id" : "f6",
+      "type" : "Script",
+      "name" : "Send",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.azure.servicebus.AzureServiceBusService;",
+            "",
+            "AzureServiceBusService.get()",
+            "  .sender(out.configName, out.senderSupplier)",
+            "  .sendMessage(out.message);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 368, "y" : 192 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f7", "color" : "default" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 192 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    } ]
+}
