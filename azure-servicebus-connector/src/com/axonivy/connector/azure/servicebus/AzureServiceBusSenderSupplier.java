@@ -1,9 +1,10 @@
-package com.axonivy.connector.azure.servicebus.connector;
+package com.axonivy.connector.azure.servicebus;
 
 import com.azure.messaging.servicebus.ServiceBusSenderClient;
 
 /**
- * Implement this interface to supply your own sender if you need more configuration possibilities than the provided supplier. 
+ * Implement this interface to supply your own sender if you need more
+ * configuration possibilities than the provided supplier.
  */
 public interface AzureServiceBusSenderSupplier {
 	/**

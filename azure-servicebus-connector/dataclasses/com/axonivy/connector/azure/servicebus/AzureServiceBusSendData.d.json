@@ -8,7 +8,7 @@
     "type" : "String"
   }, {
     "name" : "senderSupplier",
-    "type" : "com.axonivy.connector.azure.servicebus.connector.AzureServiceBusSenderSupplier"
+    "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusSenderSupplier"
   }, {
     "name" : "message",
     "type" : "com.azure.messaging.servicebus.ServiceBusMessage"
