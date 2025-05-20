@@ -32,13 +32,15 @@ public class AzureServiceBusServiceTest {
 	private static final String FORM_SEND_MESSAGE_ID = "form:send";
 	private static final String FORM_SEND_BUTTON_ID = "form:send-button";
 	private static final String FROM_MESSAGE_ID = "form:message";
+	private static final String RECEIVE_BUTTON_ID = "form:receive-button";
 
 	static DockerComposeContainer<?> environment;
 
 	@SuppressWarnings("resource")
 	@BeforeAll
 	static void setupDocker() throws IOException {
-		environment = new DockerComposeContainer<>(new File(DOCKER_FILE_PATH)).withExposedService("emulator", 5672);
+		environment = new DockerComposeContainer<>(new File(DOCKER_FILE_PATH)).withExposedService("emulator", 5672)
+				.withExposedService("emulator", 5300);
 		environment.start();
 		Selenide.sleep(20000);
 	}
@@ -69,6 +71,14 @@ public class AzureServiceBusServiceTest {
 				Send message2
 				 """;
 		$(By.id(FROM_MESSAGE_ID)).shouldHave(text(expectedValueAfterSending), Duration.ofSeconds(40));
+
+		$(By.id(RECEIVE_BUTTON_ID)).click();
+		String expectedValueAfterReceive = """
+				Received: 2 messages
+				Message: send message
+				Message: send message2
+				""";
+		$(By.id(FROM_MESSAGE_ID)).shouldHave(text(expectedValueAfterReceive), Duration.ofSeconds(40));
 	}
 
 	@Test
