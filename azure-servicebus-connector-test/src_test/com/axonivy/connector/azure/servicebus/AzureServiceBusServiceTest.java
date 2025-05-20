@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import com.axonivy.connector.azure.servicebus.AzureServiceBusService.Configuration;
@@ -21,7 +22,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Condition.*;
 
 @IvyTest
-@IvyWebTest(headless = false)
+@IvyWebTest
 @Testcontainers
 public class AzureServiceBusServiceTest {
 
@@ -32,10 +33,18 @@ public class AzureServiceBusServiceTest {
 	private static final String FROM_MESSAGE_ID = "form:message";
 
 	static DockerComposeContainer<?> environment;
+	
+	
 
 	@BeforeAll
 	@SuppressWarnings("resource")
 	static void setupDocker() throws IOException {
+	    ChromeOptions options = new ChromeOptions();
+	    options.addArguments("--headless"); // Run in headless mode (no GUI)
+	    options.addArguments("--disable-web-security"); // Disable web security (for cross-origin tests)
+	    com.codeborne.selenide.Configuration.browserCapabilities = options;
+	    com.codeborne.selenide.Configuration.browser = "chrome";
+	    
 		environment = new DockerComposeContainer<>(new File(DOCKER_FILE_PATH)).withExposedService("emulator", 5672);
 		environment.start();
 	}
