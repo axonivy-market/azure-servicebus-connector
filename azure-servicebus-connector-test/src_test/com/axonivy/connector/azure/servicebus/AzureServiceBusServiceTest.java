@@ -7,19 +7,20 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testcontainers.containers.DockerComposeContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import com.axonivy.connector.azure.servicebus.AzureServiceBusService.Configuration;
 import com.axonivy.ivy.webtest.IvyWebTest;
 import com.axonivy.ivy.webtest.engine.EngineUrl;
+import com.codeborne.selenide.Selenide;
 
 import ch.ivyteam.ivy.environment.IvyTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.axonivy.connector.azure.servicebus.AzureServiceBusService.Configuration;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Condition.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @IvyTest
 @IvyWebTest
@@ -33,20 +34,13 @@ public class AzureServiceBusServiceTest {
 	private static final String FROM_MESSAGE_ID = "form:message";
 
 	static DockerComposeContainer<?> environment;
-	
-	
 
-	@BeforeAll
 	@SuppressWarnings("resource")
+	@BeforeAll
 	static void setupDocker() throws IOException {
-	    ChromeOptions options = new ChromeOptions();
-	    options.addArguments("--headless"); // Run in headless mode (no GUI)
-	    options.addArguments("--disable-web-security"); // Disable web security (for cross-origin tests)
-	    com.codeborne.selenide.Configuration.browserCapabilities = options;
-	    com.codeborne.selenide.Configuration.browser = "chrome";
-	    
 		environment = new DockerComposeContainer<>(new File(DOCKER_FILE_PATH)).withExposedService("emulator", 5672);
 		environment.start();
+		Selenide.sleep(20000);
 	}
 
 	@AfterAll
