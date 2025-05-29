@@ -27,7 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 public class AzureServiceBusServiceTest {
 
-	private static final String DOCKER_FILE_PATH = "src_test/com/axonivy/connector/azure/servicebus/docker-config/docker-compose-default.yml";
+	private static final String DOCKER_FILE_PATH =
+			"src_test/com/axonivy/connector/azure/servicebus/docker-config/docker-compose-default.yml";
 	private static final String DEMO_PROCESS_PATH = "/azure-servicebus-connector-demo/195F0CC16F9EFA3C/start.ivp";
 	private static final String FORM_SEND_MESSAGE_ID = "form:send";
 	private static final String FORM_SEND_BUTTON_ID = "form:send-button";

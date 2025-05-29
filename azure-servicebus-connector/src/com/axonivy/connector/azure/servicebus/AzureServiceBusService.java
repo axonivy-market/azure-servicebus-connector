@@ -292,8 +292,8 @@ public class AzureServiceBusService {
 		protected static void mergeProperties(String configurationName, Set<String> seen, Properties properties) {
 			if (!seen.add(configurationName)) {
 				throw BpmError.create("azure:servicebus:connector:configloop")
-				.withMessage("Found configuration loop with already seen configuration '%s".formatted(configurationName))
-				.build();
+						.withMessage("Found configuration loop with already seen configuration '%s".formatted(configurationName))
+						.build();
 			}
 
 			var whichAbs = "%s.%s.".formatted(AZURE_SERVICEBUS_GLOBAL_VARIABLE, configurationName);
