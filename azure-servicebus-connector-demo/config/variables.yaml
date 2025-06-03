@@ -16,5 +16,5 @@ Variables:
     topic1:
       inherit: 'demo'
       topicName: 'topic.1'
-      subscriptionName: 'subscription.1'
+      subscriptionName: 'subscription.3'
     

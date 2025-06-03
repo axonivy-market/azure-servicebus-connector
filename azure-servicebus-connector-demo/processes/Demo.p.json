@@ -8,7 +8,7 @@
       "id" : "f10",
       "type" : "ProgramStart",
       "config" : {
-        "javaClass" : "com.axonivy.connector.azure.servicebus.connector.AzureServiceBusStartEventBean",
+        "javaClass" : "com.axonivy.connector.azure.servicebus.AzureServiceBusStartEventBean",
         "userConfig" : {
           "azureServiceBusConfigurationNameField" : "queue2"
         },
@@ -58,7 +58,8 @@
         "demo"
       ],
       "visual" : {
-        "at" : { "x" : 96, "y" : 64 }
+        "at" : { "x" : 96, "y" : 64 },
+        "icon" : "res:/webContent/icons/Service-Bus.png?small"
       },
       "connect" : [
         { "id" : "f19", "to" : "f18" }

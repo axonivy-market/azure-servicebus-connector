@@ -21,7 +21,7 @@
 					<div class="grid">
 						<div class="col-12 md:col-12 lg:col-11 p-text-right"></div>
 						<div class="col-12 md:col-12 lg:col-1 p-text-right">
-							<p:commandButton actionListener="#{logic.send}" value="Send" update="form" />
+							<p:commandButton id="send-button" actionListener="#{logic.send}" value="Send" update="form" />
 						</div>
 					</div>
 					<div class="grid">
@@ -39,7 +39,7 @@
 							<p:inputNumber id="maxWaitSeconds" value="#{data.maxWaitTimeSeconds}" />
 						</div>
 						<div class="col-12 md:col-12 lg:col-1 p-text-right">
-							<p:commandButton actionListener="#{logic.receive}" value="Receive" update="form" />
+							<p:commandButton id="receive-button" actionListener="#{logic.receive}" value="Receive" update="form" />
 						</div>
 					</div>
 					<div class="grid">
