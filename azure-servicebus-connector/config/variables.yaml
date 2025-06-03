@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
+Variables:
+  # All Azure Service Bus Configurations are below this node.
+  azureServicebusConnector:
+    # An example node to show the names of variables to use.
+    example:
+      # Connect by connection string.
+      connectionString:  ""
+      # Connect by default methods using a fully qualified
+      # namespace. This will use the DefaultAzureCredentialBuilder and also support
+      #  managed identities.
+      fullyQualifiedNamespace: ""
+      # Connect to a queue (only one of queue or topic should be used).
+      queueName: ""
+      # Connect to a topic (only one of queue or topic should be used).
+      topicName: ""
+      # Needed to read from a topic.
+      subscriptionName: ""

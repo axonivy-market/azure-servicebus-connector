@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:ic="http://ivyteam.ch/jsf/component" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+	<ui:composition template="/layouts/frame-10-full-width.xhtml">
+		<ui:define name="title">Azure Service Bus</ui:define>
+		<ui:define name="content">
+			<h:outputStylesheet name="layouts/styles/demostyles.css" />
+			<h:form id="form">
+				<p:growl id="growl" />
+
+				<div class="card work">
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-12">Enter message to send</div>
+					</div>
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-12">
+							<p:inputTextarea id="send" value="#{data.send}" autoResize="true" />
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-11 p-text-right"></div>
+						<div class="col-12 md:col-12 lg:col-1 p-text-right">
+							<p:commandButton id="send-button" actionListener="#{logic.send}" value="Send" update="form" />
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-5 p-text-right"></div>
+						<div class="col-12 md:col-12 lg:col-2 p-text-right">
+							<p:outputLabel for="@next" value="Max receive messages" />
+						</div>
+						<div class="col-12 md:col-12 lg:col-1 p-text-right">
+							<p:inputNumber id="maxMessages" value="#{data.maxMessages}" />
+						</div>
+						<div class="col-12 md:col-12 lg:col-2 p-text-right">
+							<p:outputLabel for="@next" value="Max wait seconds" />
+						</div>
+						<div class="col-12 md:col-12 lg:col-1 p-text-right">
+							<p:inputNumber id="maxWaitSeconds" value="#{data.maxWaitTimeSeconds}" />
+						</div>
+						<div class="col-12 md:col-12 lg:col-1 p-text-right">
+							<p:commandButton id="receive-button" actionListener="#{logic.receive}" value="Receive" update="form" />
+						</div>
+					</div>
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-8 p-text-right"></div>
+						<div class="col-12 md:col-12 lg:col-2 p-text-right">
+							<p:outputLabel for="@next" value="Config" />
+						</div>
+						<div class="col-12 md:col-12 lg:col-1 p-text-right">
+							<p:selectOneMenu id="config" value="#{data.configName}">
+								<f:selectItem itemLabel="queue.1" itemValue="queue1" />
+								<f:selectItem itemLabel="queue.2" itemValue="queue2" />
+								<f:selectItem itemLabel="topic.1" itemValue="topic1" />
+							</p:selectOneMenu>
+						</div>
+						<div class="col-12 md:col-12 lg:col-1 p-text-right"></div>
+					</div>
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-12">Note: Messages sent to queue.2 will be received automatically by a start event bean and are logged in the runtime log.</div>
+					</div>
+				</div>
+				<div class="card message">
+					<div class="grid">
+						<div class="col-12 md:col-12 lg:col-12">
+							<p:inputTextarea id="message" value="#{data.message}" autoResize="true" readonly="true" class="output" />
+						</div>
+					</div>
+				</div>
+
+
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-10"></div>
+					<div class="col-12 md:col-12 lg:col-1">
+						<p:commandLink id="cancel" actionListener="#{ivyWorkflowView.cancel()}" process="@this" value="Cancel" />
+					</div>
+					<div class="col-12 md:col-12 lg:col-1 p-text-right">
+						<p:commandButton actionListener="#{logic.clear}" value="Clear" update="form" />
+					</div>
+				</div>
+
+			</h:form>
+
+			<script>
+				window.isHideCaseInfo = true;
+				window.isHideTaskAction = true;
+				window.isHideTaskName = true;
+			</script>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

@@ -1,0 +1,149 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "195F1F2BDB18FEF8",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.azure.servicebus.AzureServiceBusReceiveData"
+  },
+  "elements" : [ {
+      "id" : "f5",
+      "type" : "CallSubStart",
+      "name" : "receive(String,Integer,Duration)",
+      "config" : {
+        "signature" : "receive",
+        "input" : {
+          "params" : [
+            { "name" : "configName", "type" : "String", "desc" : "" },
+            { "name" : "maxMessages", "type" : "Integer", "desc" : "" },
+            { "name" : "maxWaitTime", "type" : "java.time.Duration", "desc" : "" }
+          ],
+          "map" : {
+            "out.configName" : "param.configName",
+            "out.maxMessages" : "param.maxMessages",
+            "out.maxWaitTime" : "param.maxWaitTime"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "messages", "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>", "desc" : "" }
+          ],
+          "map" : {
+            "result.messages" : "in.messages"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 192, "y" : 64 },
+        "labelOffset" : { "x" : 25, "y" : 49 },
+        "description" : "Receive messages from the Azure Service Bus.",
+        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+      },
+      "connect" : [
+        { "id" : "f7", "to" : "f0" }
+      ]
+    }, {
+      "id" : "f6",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f0",
+      "type" : "Script",
+      "name" : "Receive",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.azure.servicebus.AzureServiceBusService;",
+            "",
+            "out.messages = AzureServiceBusService.get()",
+            "  .receiver(out.configName)",
+            "  .receiveMessages(out.maxMessages, out.maxWaitTime)",
+            "  .stream()",
+            "  .toList();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 368, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f1", "to" : "f6", "color" : "default" }
+      ]
+    }, {
+      "id" : "f2",
+      "type" : "CallSubStart",
+      "name" : "receive(String,AzureServiceBusReceiverSupplier,Integer,Duration)",
+      "config" : {
+        "signature" : "receive",
+        "input" : {
+          "params" : [
+            { "name" : "configName", "type" : "String", "desc" : "" },
+            { "name" : "receiverSupplier", "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusReceiverSupplier", "desc" : "" },
+            { "name" : "maxMessages", "type" : "Integer", "desc" : "" },
+            { "name" : "maxWaitTime", "type" : "java.time.Duration", "desc" : "" }
+          ],
+          "map" : {
+            "out.configName" : "param.configName",
+            "out.maxMessages" : "param.maxMessages",
+            "out.maxWaitTime" : "param.maxWaitTime",
+            "out.receiverSupplier" : "param.receiverSupplier"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "messages", "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>", "desc" : "" }
+          ],
+          "map" : {
+            "result.messages" : "in.messages"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 192, "y" : 192 },
+        "labelOffset" : { "x" : 33, "y" : 49 },
+        "description" : "Receive messages from the Azure Service Bus.",
+        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "name" : "Receive",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.axonivy.connector.azure.servicebus.AzureServiceBusService;",
+            "",
+            "out.messages = AzureServiceBusService.get()",
+            "  .receiver(out.configName, out.receiverSupplier)",
+            "  .receiveMessages(out.maxMessages, out.maxWaitTime)",
+            "  .stream()",
+            "  .toList();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 368, "y" : 192 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f4", "color" : "default" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 192 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    } ]
+}
