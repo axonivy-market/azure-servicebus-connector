@@ -1,4 +1,4 @@
-package com.axonivy.connector.azure.servicebus.connector.demo;
+package com.axonivy.connector.azure.servicebus;
 
 public class DemoService {
 	private static String DEMO_CONFIG = "demo";

@@ -1,4 +1,4 @@
-package com.axonivy.connector.azure.servicebus.connector;
+package com.axonivy.connector.azure.servicebus;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -52,9 +52,10 @@ public class AzureServiceBusService {
 	 * @param senderSupplier
 	 * @return
 	 */
-	public synchronized ServiceBusSenderClient sender(String configurationName, AzureServiceBusSenderSupplier senderSupplier) {
+	public synchronized ServiceBusSenderClient sender(String configurationName,
+			AzureServiceBusSenderSupplier senderSupplier) {
 		var sender = senders.get(configurationName);
-		if(sender == null) {
+		if (sender == null) {
 			sender = senderSupplier.supplySender(configurationName);
 			senders.put(configurationName, sender);
 		}
@@ -72,7 +73,6 @@ public class AzureServiceBusService {
 		return receiver(configurationName, GLOBAL_VARIABLES_SUPPLIER);
 	}
 
-
 	/**
 	 * Create and cache a receiver.
 	 * 
@@ -80,9 +80,10 @@ public class AzureServiceBusService {
 	 * @param receiverSupplier
 	 * @return
 	 */
-	public synchronized ServiceBusReceiverClient receiver(String configurationName, AzureServiceBusReceiverSupplier receiverSupplier) {
+	public synchronized ServiceBusReceiverClient receiver(String configurationName,
+			AzureServiceBusReceiverSupplier receiverSupplier) {
 		var receiver = receivers.get(configurationName);
-		if(receiver == null) {
+		if (receiver == null) {
 			receiver = receiverSupplier.supplyReceiver(configurationName);
 			receivers.put(configurationName, receiver);
 		}
@@ -105,29 +106,26 @@ public class AzureServiceBusService {
 	 * @param processError
 	 * @return
 	 */
-	public ServiceBusProcessorClient processor(String configurationName, Consumer<ServiceBusReceivedMessageContext> processMessage, Consumer<ServiceBusErrorContext> processError) {
+	public ServiceBusProcessorClient processor(String configurationName,
+			Consumer<ServiceBusReceivedMessageContext> processMessage, Consumer<ServiceBusErrorContext> processError) {
 		Ivy.log().info("Building processor for configuration ''{0}''.", configurationName);
 		var conf = Configuration.fromGlobalVariables(configurationName);
 
-		var builder = createBuilder(conf)
-				.processor();
+		var builder = createBuilder(conf).processor();
 
-		if(isSet(conf.queueName())) {
+		if (isSet(conf.queueName())) {
 			builder = builder.queueName(conf.queueName());
 		}
 
-		if(isSet(conf.topicName())) {
+		if (isSet(conf.topicName())) {
 			builder = builder.topicName(conf.topicName());
 		}
 
-		if(isSet(conf.subscriptionName())) {
+		if (isSet(conf.subscriptionName())) {
 			builder = builder.subscriptionName(conf.subscriptionName());
 		}
 
-		var processor = builder
-				.processMessage(processMessage)
-				.processError(processError)
-				.buildProcessorClient();
+		var processor = builder.processMessage(processMessage).processError(processError).buildProcessorClient();
 
 		return processor;
 	}
@@ -135,11 +133,11 @@ public class AzureServiceBusService {
 	public static ServiceBusClientBuilder createBuilder(Configuration conf) {
 		var builder = new ServiceBusClientBuilder();
 
-		if(isSet(conf.connectionString())) {
+		if (isSet(conf.connectionString())) {
 			builder = builder.connectionString(conf.connectionString());
 		}
 
-		if(isSet(conf.fullyQualifiedNamespace())) {
+		if (isSet(conf.fullyQualifiedNamespace())) {
 			builder = builder.fullyQualifiedNamespace(conf.fullyQualifiedNamespace())
 					.credential(new DefaultAzureCredentialBuilder().build());
 		}
@@ -151,7 +149,8 @@ public class AzureServiceBusService {
 		return StringUtils.isNotBlank(value);
 	}
 
-	protected static class GlobalVariablesSupplier implements AzureServiceBusSenderSupplier, AzureServiceBusReceiverSupplier {
+	protected static class GlobalVariablesSupplier
+			implements AzureServiceBusSenderSupplier, AzureServiceBusReceiverSupplier {
 		/**
 		 * Supply a sender by configuration from global variables.
 		 * 
@@ -163,19 +162,17 @@ public class AzureServiceBusService {
 			Ivy.log().info("Building sender for configuration ''{0}''.", configurationName);
 			var conf = Configuration.fromGlobalVariables(configurationName);
 
-			var builder = createBuilder(conf)
-					.sender();
+			var builder = createBuilder(conf).sender();
 
-			if(isSet(conf.queueName())) {
+			if (isSet(conf.queueName())) {
 				builder = builder.queueName(conf.queueName());
 			}
 
-			if(isSet(conf.topicName())) {
+			if (isSet(conf.topicName())) {
 				builder = builder.topicName(conf.topicName());
 			}
 
-			var sender = builder
-					.buildClient();
+			var sender = builder.buildClient();
 
 			return sender;
 		}
@@ -191,28 +188,28 @@ public class AzureServiceBusService {
 			Ivy.log().info("Building receiver for configuration ''{0}''.", configurationName);
 			var conf = Configuration.fromGlobalVariables(configurationName);
 
-			var builder = createBuilder(conf)
-					.receiver();
+			var builder = createBuilder(conf).receiver();
 
-			if(isSet(conf.queueName())) {
+			if (isSet(conf.queueName())) {
 				builder = builder.queueName(conf.queueName());
 			}
 
-			if(isSet(conf.topicName())) {
+			if (isSet(conf.topicName())) {
 				builder = builder.topicName(conf.topicName());
 			}
 
-			if(isSet(conf.subscriptionName())) {
+			if (isSet(conf.subscriptionName())) {
 				builder = builder.subscriptionName(conf.subscriptionName());
 			}
 
-			var receiver = builder
-					.buildClient();
+			var receiver = builder.buildClient();
 			return receiver;
 		}
 	}
 
-	public record Configuration(String fullyQualifiedNamespace, String connectionString, String queueName, String topicName, String subscriptionName) {
+	public record Configuration(String fullyQualifiedNamespace, String connectionString, String queueName,
+			String topicName, String subscriptionName) {
+
 		private static final String AZURE_SERVICEBUS_GLOBAL_VARIABLE = "azureServicebusConnector";
 		private static final String AZURE_SERVICEBUS_CONNECTION_STRING_GLOBAL_VARIABLE = "connectionString";
 		private static final String AZURE_SERVICEBUS_FULLY_QUALIFIED_NAMESPACE_GLOBAL_VARIABLE = "fullyQualifiedNamespace";
@@ -241,7 +238,8 @@ public class AzureServiceBusService {
 		}
 
 		/**
-		 * Return the configuration properties of a specific configuration stored in global variables.
+		 * Return the configuration properties of a specific configuration stored in
+		 * global variables.
 		 * 
 		 * @param configurationName
 		 * @return
@@ -273,8 +271,7 @@ public class AzureServiceBusService {
 			var value = Ivy.var().get(varName);
 			try {
 				returnValue = converter.apply(value);
-			}
-			catch(Exception e) {
+			} catch (Exception e) {
 				Ivy.log().error("Could not convert global variable ''{0}'' value ''{1}'', using default ''{2}''",
 						e, varName, value, defaultValue);
 			}
@@ -285,18 +282,18 @@ public class AzureServiceBusService {
 		/**
 		 * Read properties from global variables.
 		 * 
-		 * If a configuration contains a value for inherited,
-		 * then the inherited configuration will be read first.
+		 * If a configuration contains a value for inherited, then the inherited
+		 * configuration will be read first.
 		 * 
 		 * @param configurationName
 		 * @param seen
 		 * @param properties
 		 */
 		protected static void mergeProperties(String configurationName, Set<String> seen, Properties properties) {
-			if(!seen.add(configurationName)) {
+			if (!seen.add(configurationName)) {
 				throw BpmError.create("azure:servicebus:connector:configloop")
-				.withMessage("Found configuration loop with already seen configuration '%s".formatted(configurationName))
-				.build();
+						.withMessage("Found configuration loop with already seen configuration '%s".formatted(configurationName))
+						.build();
 			}
 
 			var whichAbs = "%s.%s.".formatted(AZURE_SERVICEBUS_GLOBAL_VARIABLE, configurationName);
@@ -305,15 +302,14 @@ public class AzureServiceBusService {
 
 			var all = Ivy.var().all();
 
-			for (var v : all) {
-				var name = v.name();
-				if(name.startsWith(whichAbs)) {
+			for (var variable : all) {
+				var name = variable.name();
+				if (name.startsWith(whichAbs)) {
 					name = name.substring(whichAbs.length());
-					var value = v.value();
-					if(name.equals("inherit")) {
+					var value = variable.value();
+					if (name.equals("inherit")) {
 						mergeProperties(value, seen, inheritedProperties);
-					}
-					else {
+					} else {
 						newProperties.put(name, value);
 					}
 				}

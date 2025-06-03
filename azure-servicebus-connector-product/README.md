@@ -59,10 +59,26 @@ Configure the connection in your global variables `demo` section with
 
 ### Azure Service Portal
 
-In the Azure Service Portal create a namespace and queues and topics. The
-demo expects queues `queue.1`, `queue.2` and topic `topic.1` with a subscription
-name `subscription.1`. Configure the correct `connectionString` or `fullyQualifiedName` in the `demo` section of
-global variables depending on the setup of you Azure Service Bus setup. For more information see the official documentation
+The demo is configured to work with two queues (`queue.1`, `queue.2`) and one topic (`topic.1`) with a subscription
+name `subscription.3` (to match the example setup in the service bus emulator). To run the demo with the real Azure Service Bus, you can either chage the global variables to match your queues and topics, or you can quickly create your own example setup, following these steps:
+
+Start the [Azure Portal](https://portal.azure.com) and open the Service Bus management section.
+![Azure Portal](images/portal.png)
+Create a namespace.
+![Create namespace](images/create-namespace.png)
+Add a SAS policy to your namespace with Send and Listen permissions.
+![Add a SAS policy](images/add-sas-policy.png)
+Note the connection string.
+![Connection string](images/connection-string.png)
+Create the needed queues and topics.
+![Create queues and topics](images/create-queues-and-topics.png)
+Create subscriptions for your topics.
+![Create subscriptions](images/create-subscriptions.png)
+
+Configure the `connectionString` (or `fullyQualifiedName`) in the `demo` section of
+global variables.
+
+For more information about the Azure Service Bus please see the official documentation
 at [https://learn.microsoft.com/de-at/azure/service-bus-messaging/](https://learn.microsoft.com/de-at/azure/service-bus-messaging/).
 
 ## Usage

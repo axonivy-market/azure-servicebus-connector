@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.axonivy.connector.azure.servicebus.connector;
+package com.axonivy.connector.azure.servicebus;
 
 import java.util.stream.Collectors;
 
@@ -57,7 +57,8 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 	}
 
 	/**
-	 * Override this function to create a {@link ServiceBusProcessorClient} with special settings not supported in global variables.
+	 * Override this function to create a {@link ServiceBusProcessorClient} with
+	 * special settings not supported in global variables.
 	 * 
 	 * @param configurationName
 	 * @return
@@ -76,7 +77,8 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 
 	protected void startProcess(ServiceBusReceivedMessageContext messageContext, ServiceBusErrorContext errorContext) {
 		var type = errorContext != null ? "error" : "message";
-		log().debug("Firing task to handle Azure Service Bus message ''{0}'' error ''{1}''.", messageContext, errorContext);
+		log().debug("Firing task to handle Azure Service Bus message ''{0}'' error ''{1}''.", messageContext,
+				errorContext);
 		var processStarter = getEventBeanRuntime()
 				.processStarter()
 				.withReason("Received Azure Service Bus %s".formatted(type))
@@ -84,7 +86,7 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 				.withParameter("errorContext", errorContext);
 		try {
 			var eventResponse = processStarter.start();
-			log().debug("Azure Service Bus {0} was handled by task {1} and returned with parameters: {2}.",
+			log().debug("Azure Service Bus {0} was handled by task {1} and returned with parameters: {2}.", 
 					type,
 					eventResponse.getStartedTask().getId(),
 					eventResponse.getParameters().keySet().stream().sorted().collect(Collectors.joining(", ")));
