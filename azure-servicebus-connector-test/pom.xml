@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.axonivy.connector.azure.servicebus</groupId>
   <artifactId>azure-servicebus-connector-test</artifactId>
-  <version>12.0.1-SNAPSHOT</version>
+  <version>13.1.1-SNAPSHOT</version>
   <packaging>iar-integration-test</packaging>
   <properties>
     <ivy.engine.version>12.0.0</ivy.engine.version>
@@ -37,13 +37,13 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>testcontainers</artifactId>
-      <version>1.19.3</version>
+      <version>1.21.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.19.3</version>
+      <version>1.21.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
