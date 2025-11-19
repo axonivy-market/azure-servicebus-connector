@@ -1,54 +1,56 @@
-# Himmelblauer Bedienung Bus Anschluss
+# Azure Service Bus Connector
 
-Koppel zu das [Himmelblauen Bedienung
+Verbinden Sie sich mit dem [Azure Service
 Bus](https://azure.microsoft.com/products/service-bus/).
 
-Dieser Anschluss gibt du greifst zu zu der Himmelblauen Bedienung Bus. Es
-erlaubt zu definieren mehrfaches #Senden und empfangend Zusammenhänge zu Reihen
-und Gegenstände.
+Dieser Connector ermöglicht Ihnen den Zugriff auf den Azure Service Bus. Damit
+können Sie mehrere Sende- und Empfangsverbindungen zu Warteschlangen und Themen
+definieren.
 
-Außerdem, dieser Anschluss versieht ein `IProcessStartEventBean` welcher kann
-sein benutzt zu starten #Ivy verarbeitet #welche reagiert auf Himmelblau
-Bedienung Bus Meldungen.
+Zusätzlich bietet dieser Konnektor eine IProcessStartEventBean-Schnittstelle (
+`)`, die zum Starten von Ivy-Prozessen verwendet werden kann, die auf Azure
+Service Bus-Nachrichten reagieren.
 
 ## Demo
 
-Die Demo versieht ein Zwiegespräch mit Knöpfe für senden und empfangend
-Meldungen für verschieden Konfigurationen.
+Die Demo bietet einen Dialog mit Schaltflächen zum Senden und Empfangen von
+Nachrichten für verschiedene Konfigurationen.
 
-Zu sehen den Effekt von senden Meldungen du hast mehrfache Optionen. In die
-#grafische Benutzeroberfläche Nutzung der Knopf zu empfangen eine #höchster
-Nummer von Meldungen von einer Konfiguration #innerhalb einer max Wartezeit
-Zeit.
+Um die Wirkung des Versendens von Nachrichten zu sehen, haben Sie mehrere
+Möglichkeiten. Verwenden Sie in der GUI die Schaltfläche, um innerhalb einer
+maximalen Wartezeit eine maximale Anzahl von Nachrichten aus einer Konfiguration
+zu empfangen.
 
 ### AzureServiceBusStartEventBean
 
-Die Demo zügelt auch Beispiele von benutzen #ein
-`AzureServiceBusStartEventBean`. In der Demo, die Bohne wollen für Konfiguration
-zuhören `queue2` und einfach #loggen die Meldung in dem Lauf-#messen #loggen.
+Die Demo enthält auch Beispiele für die Verwendung von „ `“,
+„AzureServiceBusStartEventBean“ und „` “. In der Demo wartet die Bean auf die
+Konfiguration „ `“, „queue2“ und „` “ und protokolliert die Meldung einfach im
+Laufzeitprotokoll.
 
-### Anderen Tools
+### Andere Tools
 
-Benutz das Himmelblaues Servie Bus Forscher in dem Himmelblauen Portal zu sehen
-und senden Meldungen.
+Verwenden Sie den Azure Service Bus Explorer im Azure Portal, um Nachrichten
+anzuzeigen und zu senden.
 
 ## Einrichtung
 
-Pack aus das Demo Projekt zu adaptieren alle Werte beschrieben unten.
+Entpacken Sie das Demo-Projekt, um alle unten beschriebenen Werte anzupassen.
 
-Du kannst den Anschluss mit dem Beamtem testen [Himmelblauen Bedienung Bus
+Sie können den Connector mit dem offiziellen [Azure Service Bus
 Emulator](https://github.com/Azure/azure-service-bus-emulator-installer) oder
-direkt in der Himmelblauen Bedienung Portal.
+direkt im Azure Service Portal testen.
 
-### Himmelblauer Bedienung Bus Emulator
+### Azure Service Bus Emulator
 
-- Start klonen mal das Aufbewahrungsort
-  https://github.com/Himmelblaue/#Azur-Bedienung-Bus-Emulator-Installateur
-- In der Datei `ServiceBus-Emulator\Config\Config.json` Kopiert den Block von
-  `Reihe.1` und schaffen andere Reihe geheißen `Reihe.2` (benutzt zu
-  demonstrieren automatisch empfangen von Meldungen) in der Liste von Reihen.
-- Änderung Telefonbuch zu `Hafenarbeiter-Abfassen-Vorlage`
-- Schaff eine Datei geheißen `.env` Mit dem folgenden Inhalt:
+- Beginnen Sie damit, das Repository zu klonen:
+  https://github.com/Azure/azure-service-bus-emulator-installer
+- Kopieren Sie in der Datei „ `” „ServiceBus-Emulator\Config\Config.json” „` ”
+  den Block „ `” „queue.1” „` ” und erstellen Sie eine weitere Warteschlange mit
+  dem Namen „ `” „queue.2” „` ” (dient zur Demonstration des automatischen
+  Empfangs von Nachrichten) in der Liste der Warteschlangen.
+- Wechseln Sie in das Verzeichnis „ `“ Docker-Compose-Vorlage`
+- Erstellen Sie eine Datei mit dem Namen „ `.env“` mit folgendem Inhalt:
 
 ```
 SQL_PASSWORD=AxonIvy-2025
@@ -57,79 +59,86 @@ SQL_WAIT_INTERVAL=15
 CONFIG_PATH=..\ServiceBus-Emulator\Config\Config.json
 ```
 
-Start Hafenarbeiter fasst ab von ebensolchem gleichen Telefonbuch.
+Starten Sie Docker Compose aus demselben Verzeichnis.
 
-`Hafenarbeiter fasst ab -f .\Hafenarbeiter-abfassen-Vorgabe.yml Hin -d`
+`docker compose -f .\docker-compose-default.yml up -d`
 
-Konfigurier den Zusammenhang in euren globalen Variablen `Demo` Sektion mit
-`connectionString:
-'Endpunkt=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=#SAS_#EINTASTEN_WERT;UseDevelopmentEmulator=Wahr;'`
+Konfigurieren Sie die Verbindung in Ihren globalen Variablen `demo` Abschnitt
+mit `connectionString:
+'Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;'`
 
-### Himmelblaues Bedienung Portal
+### Azure-Dienstportal
 
-Die Demo ist konfiguriert zu arbeiten mit zwei Reihen (`Reihe.1`, `Reihe.2`) und
-eins Gegenstand (`Gegenstand.1`) mit einen Abonnement Namen `Abonnement.3` (zu
-passen die Beispiel Einrichtung in den Bedienung Bus Emulator). Zu rennen die
-Demo mit dem realen Azur Bedienung Bus, du kannst auch chage die globalen
-Variablen zu passen eure Reihen und Gegenstände, oder du kannst schnell eure
-eigenes Beispiel Einrichtung schaffen, folgend diese Stufen:
+Die Demo ist für die Verwendung mit zwei Warteschlangen (`queue.1`, `queue.2`)
+und einem Thema (`topic.1`) mit einem Abonnementnamen `subscription.3`
+(entsprechend der Beispielkonfiguration im Service Bus Emulator) konfiguriert.
+Um die Demo mit dem echten Azure Service Bus auszuführen, können Sie entweder
+die globalen Variablen an Ihre Warteschlangen und Themen anpassen oder schnell
+eine eigene Beispielkonfiguration erstellen, indem Sie die folgenden Schritte
+ausführen:
 
-Starte das [Himmelblaues Portal](https://portal.azure.com) und offen den
-Bedienung Bus Management Sektion. ![Himmelblaues Portal](images/portal.png)
-Schafft einen Namensraum. ![Schafft Namensraum](images/create-namespace.png)
-Fügt zu eine #SAS Richtlinie zu eurem Namensraum mit Senden und Zuhören
-Erlaubnisse. ![Fügt zu eine #SAS Richtlinie](images/add-sas-policy.png) Beachtet
-die Zusammenhang Schnur. ![Zusammenhang Schnur](images/connection-string.png)
-Schafft die brauchte Reihen und Gegenstände. ![Schaffen Reihen und
-Gegenstände](images/create-queues-and-topics.png) Schaffen Abonnements für eure
-Gegenstände. ![Schaffen Abonnements](images/create-subscriptions.png)
+Starten Sie das [Azure-Portal](https://portal.azure.com) und öffnen Sie den
+Abschnitt „Service Bus-Verwaltung”. ![Azure-Portal](images/portal.png) Erstellen
+Sie einen Namespace. ![Namespace erstellen](images/create-namespace.png) Fügen
+Sie Ihrem Namespace eine SAS-Richtlinie mit Send- und Listen-Berechtigungen
+hinzu. ![SAS-Richtlinie hinzufügen](images/add-sas-policy.png) Notieren Sie sich
+die Verbindungszeichenfolge.
+![Verbindungszeichenfolge](images/connection-string.png) Erstellen Sie die
+erforderlichen Warteschlangen und Themen. ![Warteschlangen und Themen
+erstellen](images/create-queues-and-topics.png) Erstellen Sie Abonnements für
+Ihre Themen. ![Abonnements erstellen](images/create-subscriptions.png)
 
-Konfigurier das `connectionString` (oder `fullyQualifiedName`) herein das `Demo`
-Sektion von global Variablen.
+Konfigurieren Sie die Verbindung „ `“ connectionString` (oder
+`fullyQualifiedName`) im Abschnitt „ `“ demo` der globalen Variablen.
 
-Für #mehr Auskunft von der Himmelblauen Bedienung Bus sehen bitte die offizielle
-Dokumentation an
-[https://Lern.microsoft.com/de-An/himmelblau/Bedienung-Bus-messaging/](https://learn.microsoft.com/de-at/azure/service-bus-messaging/).
+Weitere Informationen zum Azure Service Bus finden Sie in der offiziellen
+Dokumentation unter
+[https://learn.microsoft.com/de-at/azure/service-bus-messaging/](https://learn.microsoft.com/de-at/azure/service-bus-messaging/).
 
-## Gebrauch
+## Verwendung
 
-Der Anschluss zurzeit koppeln Unterstützungen mit #ein `connectionString` oder
-mit die `fullyQualifiedName` und #ein `DefaultAzureCredentialBuilder`. Beide
-Werte können sein konfiguriert für jede Konfiguration. Ob du möchtest diese
-Konfiguration teilen zwischen mehrfach Reihen oder Gegenstände, es zu schaffen
-eine gute Idee eine Basis Konfiguration und `erbt` von es in anderen Orten.
-Bitte sieh die Himmelblaue Dokumentation für einen Steckbrief von diesen
-Methoden.
+Der Connector unterstützt derzeit die Verbindung mit einem `connectionString`
+oder mit dem `fullyQualifiedName` und einem `DefaultAzureCredentialBuilder`.
+Beide Werte können für jede Konfiguration konfiguriert werden. Wenn Sie diese
+Konfiguration für mehrere Warteschlangen oder Themen freigeben möchten,
+empfiehlt es sich, eine Basiskonfiguration zu erstellen und `` an anderen
+Stellen davon zu erben. Eine Beschreibung dieser Methoden finden Sie in der
+Azure-Dokumentation.
 
-Der Anschluss versieht simpel senden und empfangen Methoden und automatisch
-schaffen Absender und Telefonhörer gegründet auf global Variablen Konfiguration.
+Der Konnektor bietet einfache Sende- und Empfangsfunktionen und erstellt
+automatisch Sender und Empfänger basierend auf der Konfiguration globaler
+Variablen.
 
-Ob irgendwelche spezielle Konfiguration ist gebraucht, bitte implementieren eine
-`AzureServiceBusSenderSupplier` #welche schafft einen Absender oder einen
-`AzureServiceBusReceiverSupplier` #welche schafft einen Telefonhörer. Du darfst
-mögen sehen hinein das `AzureServiceBusService` zu sehen wie ist getan dies.
-Absender und Telefonhörer geschafft herein sind identifiziert bei Zulieferer bei
-einen Konfiguration Namen und will sein #zwischengespeichert und re-benutzte
-genauso da ihren simplen Gegenstücken. Zu schaffen einen spezifischen Prozessor,
-du solltest das #versehen erweitern `AzureServiceBusStartEventBean` und
-Überbrückung die Aufgabe `createProcessor`.
+Wenn eine spezielle Konfiguration erforderlich ist, implementieren Sie bitte
+einen `AzureServiceBusSenderSupplier`, der einen Sender erstellt, oder einen
+`AzureServiceBusReceiverSupplier`, der einen Empfänger erstellt. Sie können sich
+unter `AzureServiceBusService` ansehen, wie dies funktioniert. Von Suppliers
+erstellte Sender und Empfänger werden anhand eines Konfigurationsnamens
+identifiziert und werden wie ihre einfachen Entsprechungen zwischengespeichert
+und wiederverwendet. Um einen bestimmten Prozessor zu erstellen, sollten Sie die
+bereitgestellten `AzureServiceBusStartEventBean` erweitern und die Funktion
+`createProcessor` überschreiben.
 
 ### AzureServiceBusStartEventBean
 
-Ein `AzureServiceBusStartEventBean` für Nutzung in einem Efeu *Programmheft
-Start* Element ist versehen zu zuhören auf Konfigurationen und Start #Ivy
-verarbeitet. #Ausgewählt diese Bohne herein die *Start* Deckel von ein
-*Programmheft Start* Element.
+Eine „ `“ „AzureServiceBusStartEventBean“ „` “ zur Verwendung in einem
+Ivy-Programm „ *“ „Program start“ „* “-Element wird bereitgestellt, um
+Konfigurationen abzuhören und Ivy-Prozesse zu starten. Wählen Sie diese Bean auf
+der Registerkarte „ *“ „Start“ „* “ eines Ivy-Programms „ *“ „Program start“ „*
+“-Elements aus.
 
-Konfigurier den Konfiguration Namen zu benutzen herein für den Prozessor den
-*Chefredakteur* Deckel von den *Programmheft Start* Element:
+Konfigurieren Sie den Konfigurationsnamen, der für den Prozessor im Editor „ *“
+(Konfigurationsname) auf der Registerkarte „* “ (Konfigurationsname) des
+Elements „ *Program start“ (Programmstart) „* “ (Konfigurationsname) verwendet
+werden soll:
 
 ### Konfiguration
 
-Konfiguration kann sein getan in global Variablen #wo manche simpel inheritence
-Mechanismus ist versehen. Alle Himmelblaue Bedienung Bus Konfiguration ist
-gelagert unten die `azureServicebusConnector` globale Variable. Sieh die
-variablen Steckbriefe für Gebrauch.
+Die Konfiguration kann in globalen Variablen vorgenommen werden, für die ein
+einfacher Vererbungsmechanismus bereitgestellt wird. Die gesamte Azure Service
+Bus-Konfiguration wird unterhalb der globalen Variablen „
+`azureServicebusConnector` ” gespeichert. Informationen zur Verwendung finden
+Sie in den Variablenbeschreibungen.
 
 
 ```
