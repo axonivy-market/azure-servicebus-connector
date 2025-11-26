@@ -33,7 +33,7 @@ Laufzeitprotokoll.
 Verwenden Sie den Azure Service Bus Explorer im Azure Portal, um Nachrichten
 anzuzeigen und zu senden.
 
-## Einrichtung
+## Setup
 
 Entpacken Sie das Demo-Projekt, um alle unten beschriebenen Werte anzupassen.
 
