@@ -11,15 +11,15 @@
 	</properties>
 
 	<modules>
-		<module>${project.name}</module>
-		<module>${project.name}-demo</module>
-		<module>${project.name}-test</module>
-		<module>${project.name}-product</module>
+		<module>azure-servicebus-connector</module>
+		<module>azure-servicebus-connector-demo</module>
+		<module>azure-servicebus-connector-test</module>
+		<module>azure-servicebus-connector-product</module>
 	</modules>
 
 	<scm>
 		<developerConnection>
-			scm:git:https://github.com/axonivy-market/${project.name}.git</developerConnection>
+			scm:git:https://github.com/axonivy-market/azure-servicebus-connector.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
