@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
   "id" : "195F1F2BDB18FEF8",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -39,7 +39,7 @@
         "at" : { "x" : 192, "y" : 64 },
         "labelOffset" : { "x" : 25, "y" : 49 },
         "description" : "Receive messages from the Azure Service Bus.",
-        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+        "icon" : "res:/webContent/icons/Service-Bus.png"
       },
       "connect" : [
         { "id" : "f7", "to" : "f0" }
@@ -110,7 +110,7 @@
         "at" : { "x" : 192, "y" : 192 },
         "labelOffset" : { "x" : 33, "y" : 49 },
         "description" : "Receive messages from the Azure Service Bus.",
-        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+        "icon" : "res:/webContent/icons/Service-Bus.png"
       },
       "connect" : [
         { "id" : "f8", "to" : "f3" }
