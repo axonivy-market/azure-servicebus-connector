@@ -5,8 +5,6 @@ package com.axonivy.connector.azure.servicebus;
 
 import java.util.stream.Collectors;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-
 import com.azure.messaging.servicebus.ServiceBusErrorContext;
 import com.azure.messaging.servicebus.ServiceBusProcessorClient;
 import com.azure.messaging.servicebus.ServiceBusReceivedMessageContext;
@@ -44,7 +42,7 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 	}
 
 	@Override
-	public void start(IProgressMonitor monitor) throws ServiceException {
+	public void start() throws ServiceException {
 		var configurationName = getAzureServiceBusConfigurationName();
 
 		log().debug("Starting Azure Service Bus processor for configuration name: ''{0}''", configurationName);
@@ -52,7 +50,7 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 		processor = createProcessor(configurationName);
 		processor.start();
 
-		super.start(monitor);
+		super.start();
 		log().info("Started");
 	}
 
@@ -96,9 +94,10 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 	}
 
 	@Override
-	public void stop(IProgressMonitor monitor) throws ServiceException {
+	public void stop() throws ServiceException {
 		processor.close();
-		super.stop(monitor);
+		super.stop();
+		log().info("Stopped");
 	}
 
 	@Override

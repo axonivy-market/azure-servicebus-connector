@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
   "id" : "195F0CC16F9EFA3C",
   "config" : {
     "data" : "com.axonivy.connector.azure.servicebus.connector.demo.DemoData"
@@ -17,7 +17,7 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 176 },
         "labelOffset" : { "x" : 13, "y" : 33 },
-        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+        "icon" : "res:/webContent/icons/Service-Bus.png"
       },
       "connect" : [
         { "id" : "f12", "to" : "f0" }
@@ -59,7 +59,7 @@
       ],
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
-        "icon" : "res:/webContent/icons/Service-Bus.png?small"
+        "icon" : "res:/webContent/icons/Service-Bus.png"
       },
       "connect" : [
         { "id" : "f19", "to" : "f18" }

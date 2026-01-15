@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.axonivy.ivy.api</groupId>
     <artifactId>ivy-project-parent</artifactId>
-    <version>13.1.1</version>
-    <relativePath />
+    <version>13.2.0</version>
+    <relativePath></relativePath>
   </parent>
   <groupId>com.axonivy.connector.azure.servicebus</groupId>
   <artifactId>azure-servicebus-connector-test</artifactId>
-  <version>13.1.2-SNAPSHOT</version>
+  <version>13.2.0-SNAPSHOT</version>
   <packaging>iar-integration-test</packaging>
   <properties>
-    <ivy.engine.version>13.1.1</ivy.engine.version>
+    <ivy.engine.version>13.2.0</ivy.engine.version>
   </properties>
   <dependencies>
     <dependency>
@@ -28,25 +29,25 @@
       <type>iar</type>
     </dependency>
     <dependency>
-      <groupId>com.axonivy.ivy.test</groupId>
-      <artifactId>unit-tester</artifactId>
+      <groupId>com.axonivy.ivy.api.test</groupId>
+      <artifactId>ivy-test-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>testcontainers</artifactId>
-      <version>1.21.3</version>
+      <version>2.0.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.21.3</version>
+      <version>1.21.4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.axonivy.ivy.webtest</groupId>
-      <artifactId>web-tester</artifactId>
+      <groupId>com.axonivy.ivy.api.test</groupId>
+      <artifactId>ivy-web-test-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
