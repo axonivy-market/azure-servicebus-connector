@@ -4,15 +4,15 @@ Variables:
     # Base configuration for use by other configurations.
     demo:
       connectionString: 'Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;'
-    # A demo queue inherting from the demo configuration
+    # A demo queue inheriting from the demo configuration
     queue1:
       inherit: 'demo'
       queueName: 'queue.1'
-    # Another demo queue inherting from the demo configuration
+    # Another demo queue inheriting from the demo configuration
     queue2:
       inherit: 'demo'
       queueName: 'queue.2'
-    # A demo topic inherting from the demo configuration
+    # A demo topic inheriting from the demo configuration
     topic1:
       inherit: 'demo'
       topicName: 'topic.1'

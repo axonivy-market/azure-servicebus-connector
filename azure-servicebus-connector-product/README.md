@@ -26,7 +26,7 @@ log the message in the run-time log.
 
 ### Other tools
 
-Use the Azure Servie Bus Explorer in the Azure Portal to see and send messages.
+Use the Azure Service Bus Explorer in the Azure Portal to see and send messages.
 
 ## Setup
 
@@ -63,7 +63,7 @@ Configure the connection in your global variables `demo` section with
 ### Azure Service Portal
 
 The demo is configured to work with two queues (`queue.1`, `queue.2`) and one topic (`topic.1`) with a subscription
-name `subscription.3` (to match the example setup in the service bus emulator). To run the demo with the real Azure Service Bus, you can either chage the global variables to match your queues and topics, or you can quickly create your own example setup, following these steps:
+name `subscription.3` (to match the example setup in the service bus emulator). To run the demo with the real Azure Service Bus, you can either change the global variables to match your queues and topics, or you can quickly create your own example setup, following these steps:
 
 Start the [Azure Portal](https://portal.azure.com) and open the Service Bus management section.
 ![Azure Portal](images/portal.png)
@@ -114,7 +114,7 @@ Configure the configuration name to use for the processor in the *Editor* tab of
 
 ### Configuration
 
-Configuration can be done in global variables where some simple inheritence mechanism
+Configuration can be done in global variables where some simple inheritance mechanism
 is provided. All Azure Service Bus configuration is stored below the `azureServicebusConnector` global
 variable. See the variable descriptions for usage.
 
