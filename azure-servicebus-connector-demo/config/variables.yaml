@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/variables.json
 Variables:
   azureServicebusConnector:
     # Base configuration for use by other configurations.
@@ -17,4 +17,3 @@ Variables:
       inherit: 'demo'
       topicName: 'topic.1'
       subscriptionName: 'subscription.3'
-    

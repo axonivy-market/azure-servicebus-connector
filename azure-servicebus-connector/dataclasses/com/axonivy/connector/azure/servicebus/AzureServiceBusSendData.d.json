@@ -1,16 +1,17 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "AzureServiceBusSendData",
   "namespace" : "com.axonivy.connector.azure.servicebus",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "configName",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "senderSupplier",
-    "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusSenderSupplier"
+    "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusSenderSupplier",
+    "modifiers" : [ ]
   }, {
     "name" : "message",
-    "type" : "com.azure.messaging.servicebus.ServiceBusMessage"
+    "type" : "com.azure.messaging.servicebus.ServiceBusMessage",
+    "modifiers" : [ ]
   } ]
 }

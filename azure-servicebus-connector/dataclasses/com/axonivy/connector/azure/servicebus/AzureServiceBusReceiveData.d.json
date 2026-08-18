@@ -1,22 +1,25 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "AzureServiceBusReceiveData",
   "namespace" : "com.axonivy.connector.azure.servicebus",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "configName",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "receiverSupplier",
-    "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusReceiverSupplier"
+    "type" : "com.axonivy.connector.azure.servicebus.AzureServiceBusReceiverSupplier",
+    "modifiers" : [ ]
   }, {
     "name" : "messages",
-    "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>"
+    "type" : "List<com.azure.messaging.servicebus.ServiceBusReceivedMessage>",
+    "modifiers" : [ ]
   }, {
     "name" : "maxMessages",
-    "type" : "java.lang.Integer"
+    "type" : "java.lang.Integer",
+    "modifiers" : [ ]
   }, {
     "name" : "maxWaitTime",
-    "type" : "java.time.Duration"
+    "type" : "java.time.Duration",
+    "modifiers" : [ ]
   } ]
 }

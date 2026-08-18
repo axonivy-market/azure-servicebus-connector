@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.axonivy.ivy.api</groupId>
     <artifactId>ivy-project-parent</artifactId>
-    <version>13.2.0</version>
-    <relativePath />
+    <version>14.0.0-SNAPSHOT</version>
+    <relativePath></relativePath>
   </parent>
   <groupId>com.axonivy.connector.azure.servicebus</groupId>
   <artifactId>azure-servicebus-connector</artifactId>
-  <version>13.2.1-SNAPSHOT</version>
+  <version>14.0.0-SNAPSHOT</version>
   <packaging>iar</packaging>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.azure</groupId>
         <artifactId>azure-sdk-bom</artifactId>
-        <version>1.3.3</version>
+        <version>1.3.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -32,9 +33,9 @@
       <artifactId>azure-identity</artifactId>
     </dependency>
     <dependency>
-     <groupId>com.axonivy.ivy.spi</groupId>
-     <artifactId>ivy-process-extension-spi</artifactId>
-   </dependency>
+      <groupId>com.axonivy.ivy.spi</groupId>
+      <artifactId>ivy-process-extension-spi</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.axonivy.ivy.api</groupId>
       <artifactId>ivy-api</artifactId>
