@@ -3,18 +3,24 @@
   "simpleName" : "DemoData",
   "namespace" : "com.axonivy.connector.azure.servicebus.connector.demo.Demo",
   "fields" : [ {
-    "name" : "send"
+    "name" : "send",
+    "modifiers" : [ ]
   }, {
-    "name" : "configName"
+    "name" : "configName",
+    "modifiers" : [ ]
   }, {
-    "name" : "message"
+    "name" : "message",
+    "modifiers" : [ ]
   }, {
     "name" : "maxMessages",
-    "type" : "java.lang.Integer"
+    "type" : "java.lang.Integer",
+    "modifiers" : [ ]
   }, {
     "name" : "maxWaitTimeSeconds",
-    "type" : "java.lang.Integer"
+    "type" : "java.lang.Integer",
+    "modifiers" : [ ]
   }, {
-    "name" : "oldSend"
+    "name" : "oldSend",
+    "modifiers" : [ ]
   } ]
 }
