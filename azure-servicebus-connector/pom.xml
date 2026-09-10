@@ -35,6 +35,7 @@
     <dependency>
       <groupId>com.axonivy.ivy.api.extension</groupId>
       <artifactId>ivy-process-extension-api</artifactId>
+      <scope>compile</scope><!-- workaround; not on runtime classpath of dependent projects -->
     </dependency>
     <dependency>
       <groupId>com.axonivy.ivy.api</groupId>
