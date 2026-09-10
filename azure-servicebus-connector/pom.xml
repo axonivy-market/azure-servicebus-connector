@@ -17,7 +17,7 @@
       <dependency>
         <groupId>com.azure</groupId>
         <artifactId>azure-sdk-bom</artifactId>
-        <version>1.3.7</version>
+        <version>1.3.8</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -33,8 +33,9 @@
       <artifactId>azure-identity</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.axonivy.ivy.spi</groupId>
-      <artifactId>ivy-process-extension-spi</artifactId>
+      <groupId>com.axonivy.ivy.api.extension</groupId>
+      <artifactId>ivy-process-extension-api</artifactId>
+      <scope>compile</scope><!-- workaround; not on runtime classpath of dependent projects -->
     </dependency>
     <dependency>
       <groupId>com.axonivy.ivy.api</groupId>
