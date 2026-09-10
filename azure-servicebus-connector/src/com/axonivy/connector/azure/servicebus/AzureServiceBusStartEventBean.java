@@ -13,8 +13,8 @@ import ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean;
 import ch.ivyteam.ivy.process.eventstart.IProcessStartEventBean;
 import ch.ivyteam.ivy.process.eventstart.IProcessStartEventBeanRuntime;
 import ch.ivyteam.ivy.process.extension.ProgramConfig;
-import ch.ivyteam.ivy.process.extension.ui.ExtensionUiBuilder;
-import ch.ivyteam.ivy.process.extension.ui.UiEditorExtension;
+import ch.ivyteam.ivy.process.program.ui.ProgramEditorUi;
+import ch.ivyteam.ivy.process.program.ui.ProgramUiBuilder;
 import ch.ivyteam.ivy.request.RequestException;
 import ch.ivyteam.ivy.service.ServiceException;
 import ch.ivyteam.log.Logger;
@@ -24,13 +24,10 @@ import ch.ivyteam.log.Logger;
  * 
  * You may override this class to supply your own processor.
  */
-public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean {
+public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean implements ProgramEditorUi {
 	private static final String AZURE_SERVICEBUS_CONFIGURATION_NAME_FIELD = "azureServiceBusConfigurationNameField";
 	private ServiceBusProcessorClient processor = null;
 
-	/**
-	 * Constructor.
-	 */
 	public AzureServiceBusStartEventBean() {
 		super("AzureServiceBusStartEventBean", "Listen on the Azure Service Bus");
 	}
@@ -105,22 +102,16 @@ public class AzureServiceBusStartEventBean extends AbstractProcessStartEventBean
 		log().warn("Did not expect call to poll (polling was disabled).");
 	}
 
-	/**
-	 * 
-	 */
-	public static class Editor extends UiEditorExtension {
-
-		@Override
-		public void initUiFields(ExtensionUiBuilder ui) {
-			ui.label("Configuration Name:").create();
-			ui.textField(AZURE_SERVICEBUS_CONFIGURATION_NAME_FIELD).create();
-			String helpTopic = String.format("""
-					Configuration name:
-					Name of a collection of global variables below
-					%s which defines a specific Kafka consumer configuration.
-					""", AzureServiceBusService.Configuration.getAzureServicebusGlobalVariable());
-			ui.label(helpTopic).multiline().create();
-		}
+	@Override
+	public void editor(ProgramUiBuilder ui) {
+		ui.label("Configuration Name:").create();
+		ui.textField(AZURE_SERVICEBUS_CONFIGURATION_NAME_FIELD).create();
+		String helpTopic = String.format("""
+				Configuration name:
+				Name of a collection of global variables below
+				%s which defines a specific Kafka consumer configuration.
+				""", AzureServiceBusService.Configuration.getAzureServicebusGlobalVariable());
+		ui.label(helpTopic).multiline().create();
 	}
 
 	protected String getAzureServiceBusConfigurationName() {
