@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.axonivy.ivy.api</groupId>
     <artifactId>ivy-project-parent</artifactId>
-    <version>14.0.0-SNAPSHOT</version>
+    <version>14.0.0</version>
     <relativePath></relativePath>
   </parent>
   <groupId>com.axonivy.connector.azure.servicebus</groupId>
@@ -35,7 +35,7 @@
     <dependency>
       <groupId>com.axonivy.ivy.api.extension</groupId>
       <artifactId>ivy-process-extension-api</artifactId>
-      <scope>compile</scope><!-- workaround; not on runtime classpath of dependent projects -->
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.axonivy.ivy.api</groupId>
